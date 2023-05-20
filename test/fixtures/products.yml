@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  sku: MyText
+  brand: MyText
+  store: MyText
+  url: MyText
+  store_url: MyText
+  description: MyText
+  old_price: 9.99
+  price: 9.99
+  installment_quantity: 1
+  installment_value: 9.99
+  available: false
+
+two:
+  name: MyText
+  sku: MyText
+  brand: MyText
+  store: MyText
+  url: MyText
+  store_url: MyText
+  description: MyText
+  old_price: 9.99
+  price: 9.99
+  installment_quantity: 1
+  installment_value: 9.99
+  available: false
