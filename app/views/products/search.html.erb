@@ -1,0 +1,5 @@
+<%= form_tag('/product/search', method: 'get') do %>
+  <%= label_tag 'Product URL' %>
+  <%= text_field_tag 'product_url' %>
+  <%= submit_tag 'Search' %>
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Product Information</h1>
+<p>Name: <%= @scraped_product[:name] %></p>
+<p>Brand: <%= @scraped_product[:brand] %></p>
+<p>SKU: <%= @scraped_product[:sku] %></p>
+<p>Description: <%= @scraped_product[:description] %></p>
+<p>Price:  <span style="text-decoration: line-through;"><%= @scraped_product[:old_price] %></span> <span><%= @scraped_product[:price] %></span></p>
+<p>Installments: <%= @scraped_product[:installment_quantity] %>x of <%= @scraped_product[:currency] %><%= @scraped_product[:installment_value] %></p>
+<p>Available: <%= @scraped_product[:available] %></p>
+<p>Images:
+<% @scraped_product[:images].each do |image| %>
+  <img src="<%= image %>" style="max-width:30vw">
+<% end %>
