@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # create a route for product result where the scraped data will be displayed
   get '/product/result', to: 'products#result'
 
-  resources :products
+  resources :products do
+    resources :product_images
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
