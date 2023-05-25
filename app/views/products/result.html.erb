@@ -1,4 +1,7 @@
 <h1>Product Information</h1>
+<% @product.product_images.each do |image| %>
+  <img src="<%= image.url %>" style="max-width:15vw">
+<% end %>
 <p>Name: <%= @product.name %></p>
 <p>Brand: <%= @product.brand %></p>
 <p>SKU: <%= @product.sku %></p>
@@ -6,7 +9,3 @@
 <p>Price:  <span style="text-decoration: line-through;"><%= @product.old_price %></span> <span><%= @product.price %></span></p>
 <p>Installments: <%= @product[:installment_quantity] %>x of <%= @product.currency %><%= @product.installment_value %></p>
 <p>Available: <%= @product.available %></p>
-<p>Images:</p>
-<% @product.product_images.each do |image| %>
-  <img src="<%= image.url %>" style="max-width:30vw">
-<% end %>

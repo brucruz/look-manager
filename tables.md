@@ -33,10 +33,11 @@
 - createdAt: timestamp
 - updatedAt: timestamp
 
-## Product Categories
+## User Product Categories
 
 - id: uuid
 - userId: uuid
+- productId: uuid
 - category: varchar
 - color: varchar
 - palette: varchar

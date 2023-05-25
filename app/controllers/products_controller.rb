@@ -49,7 +49,7 @@ require 'tanakai'
         #   })
         #   .map(function () {
         #     size = $(this).attr("data-label") || "not-found";
-            available = !$(this).attr("class")?.includes
+        #     available = !$(this).attr("class")?.includes
 
         # Add the scraped product to the database
         @product = Product.create(@@scraped_product)

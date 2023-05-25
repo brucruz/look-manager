@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :product_images
+    resources :product_sizes
+    resources :user_product_categories
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
