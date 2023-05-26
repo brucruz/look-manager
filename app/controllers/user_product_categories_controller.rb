@@ -1,7 +1,7 @@
 class UserProductCategoriesController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
-    @user_product_category = @product.user_product_categories.create(user_product_category_params)
+    @user_product_category = @product.user_product_categories.create({ user_id: current_user.id, **user_product_category_params })
     redirect_to product_path(@product)
   end
   
