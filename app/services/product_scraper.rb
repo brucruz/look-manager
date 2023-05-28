@@ -26,8 +26,19 @@ class ProductScraper < Tanakai::Base
     scraped_product[:brand] = product_div.css('.produt-title--brand a').text.strip
     scraped_product[:description] = product_div.css('.stylesTips .panel-body').text.strip
     
-    scraped_product[:old_price] = product_div.css('.product-price span.price[id^=old]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
-    scraped_product[:price] = product_div.css('.product-price span.price[id^=product]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
+    regular_price = product_div.css('.regular-price span.price').text.strip
+    
+    if regular_price.empty?
+      scraped_product[:old_price] = getValue(product_div.css('.product-price span.price[id^=old]').text.strip)
+      scraped_product[:price] = getValue(product_div.css('.product-price span.price[id^=product]').text.strip)
+    else
+      scraped_product[:price] = getValue(regular_price)
+    end
+
+    debugger
+    
+    # scraped_product[:old_price] = product_div.css('.product-price span.price[id^=old]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
+    # scraped_product[:price] = product_div.css('.product-price span.price[id^=product]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
 
     installment_value = product_div.css('.product-price .product-installment').text.strip.split("x de ")[1].strip
     scraped_product[:currency] = installment_value.scan(/[A-Z]{1}\$/).first
@@ -65,4 +76,9 @@ class ProductScraper < Tanakai::Base
 
     @@scraped_product = scraped_product
   end
+
+  def getValue(text)
+    text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
+  end
+  
 end

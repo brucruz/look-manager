@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    # list all the product that have user_product_category related to the current_user
+    @products = Product.joins(:user_product_categories).where("user_id = ?", current_user.id)
   end
 
   # GET /products/1 or /products/1.json
@@ -12,14 +13,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
-  end
-
-  # GET /products/1/edit
-  def edit
-  end
-
-  def search
+    # @product = Product.new
     @product_url = params[:product_url]
     return unless @product_url.present?
 
@@ -37,12 +31,36 @@ class ProductsController < ApplicationController
      scraped_product = ProductScraper.scraped_product
 
      # Redirect to the result page and pass the scraped data
-    #  redirect_to product_result_path(scraped_product: scraped_product)
      redirect_to product_result_path(id: scraped_product[:id])
   end
 
+  # GET /products/1/edit
+  def edit
+  end
+
+  # GET /product/search
+  def search
+    # @product_url = params[:product_url]
+    # return unless @product_url.present?
+
+    # @product = Product.find_by(url: @product_url)
+
+    # # If the product is already in the database, redirect to the result page and pass the product data
+    # if @product.present?
+    #   redirect_to product_result_path(id: @product.id)
+    #   return
+    # end
+
+    #  # If the product is not on the database, start the scraping process
+    #  ProductScraper.process(@product_url)
+     
+    #  scraped_product = ProductScraper.scraped_product
+
+    #  # Redirect to the result page and pass the scraped data
+    #  redirect_to product_result_path(id: scraped_product[:id])
+  end
+
   def result
-    # @scraped_product = params[:scraped_product]
     @product = Product.find(params[:id])
   end
 

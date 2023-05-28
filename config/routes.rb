@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  # create a route for product search where there will be a form get the url to be scraped
-  get '/product/search', to: 'products#search'
   # create a route for product result where the scraped data will be displayed
   get '/product/result', to: 'products#result'
 
