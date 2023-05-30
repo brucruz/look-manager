@@ -22,20 +22,26 @@
   </p>
   <p>
     <%= f.label :palette %>
-    <%= f.select :palette, [
-      'Verão Claro',
-      'Verão Frio',
-      'Verão Suave',
-      'Primavera Clara',
-      'Primavera Quente',
-      'Primavera Brilhante',
-      'Inverno Frio',
-      'Inverno Brilhante',
-      'Inverno Escuro',
-      'Outono Suave',
-      'Outono Quente',
-      'Outono Escuro',
-    ] %>
+    <p>
+      <%= [
+        'Verão Claro',
+        'Verão Frio',
+        'Verão Suave',
+        'Primavera Clara',
+        'Primavera Quente',
+        'Primavera Brilhante',
+        'Inverno Frio',
+        'Inverno Brilhante',
+        'Inverno Escuro',
+        'Outono Suave',
+        'Outono Quente',
+        'Outono Escuro',
+      ].each do |pal| %>
+        <%= f.check_box :palette, { :multiple => true }, :pal, nil %>
+        <%= f.label pal %> <br>
+      <% end %>
+    </p>
+
   </p>
   <p>
     <%= f.label :contrast %>

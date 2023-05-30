@@ -35,11 +35,6 @@ class ProductScraper < Tanakai::Base
       scraped_product[:price] = getValue(regular_price)
     end
 
-    debugger
-    
-    # scraped_product[:old_price] = product_div.css('.product-price span.price[id^=old]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
-    # scraped_product[:price] = product_div.css('.product-price span.price[id^=product]').text.strip.gsub(/[^\d,]/, '').gsub(',', '.').to_f
-
     installment_value = product_div.css('.product-price .product-installment').text.strip.split("x de ")[1].strip
     scraped_product[:currency] = installment_value.scan(/[A-Z]{1}\$/).first
     scraped_product[:installment_value] = installment_value.gsub(/[^\d,]/, '').gsub(',', '.').to_f
