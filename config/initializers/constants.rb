@@ -1,0 +1,38 @@
+PALETTES = [
+  'CLEAR_WINTER',
+  'COOL_WINTER',
+  'DEEP_WINTER',
+  'SOFT_SUMMER',
+  'COOL_SUMMER',
+  'LIGHT_SUMMER',
+  'CLEAR_SPRING',
+  'WARM_SPRING',
+  'LIGHT_SPRING',
+  'SOFT_AUTUMN',
+  'WARM_AUTUMN',
+  'DEEP_AUTUMN',
+].freeze
+
+CONTRASTS = [
+  'HIGH',
+  'MEDIUM',
+  'LOW',
+].freeze
+
+STYLES = [
+  'NATURAL',
+  'MODERN',
+  'ELEGANT',
+  'ROMANTIC',
+  'SEXY',
+  'CLASSIC',
+  'CREATIVE',
+].freeze
+
+BODY_TYPES = [
+  'HOURGLASS',
+  'INVERTED_TRIANGLE',
+  'TRIANGLE',
+  'RECTANGLE',
+  'ROUND',
+].freeze

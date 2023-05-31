@@ -2,15 +2,14 @@
 
 ## Before deploying to production
 
-- [ ] Change collection item characteristics from string to nullable json array:
-  - [ ] Category
-  - [ ] Color
-  - [ ] Palette
-  - [ ] Contrast
-  - [ ] Style
-  - [ ] Body Type
-- [ ] Change create user-product-categories migration to create collection item
-- [ ] Updated collection item form to use checkboxes
+- [x] Change collection item characteristics from string to nullable json array:
+  - [x] Color
+  - [x] Palette
+  - [x] Contrast
+  - [x] Style
+  - [x] Body Type
+- [x] Change create user-product-categories migration to create collection item
+- [x] Updated collection item form to use checkboxes
 
 ## After deploying to production
 

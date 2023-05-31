@@ -13,62 +13,45 @@
 <h2>Classify this product so you can find it easily and recommend it to your clients:</h2>
 <%= form_with model: [ @product, @product.collection_items.build ] do |f| %>
   <p>
-    <%= f.label :color %>
-    <%= f.text_field :color %>
-  </p>
-  <p>
     <%= f.label :palette %>
     <p>
-      <%= [
-        'Verão Claro',
-        'Verão Frio',
-        'Verão Suave',
-        'Primavera Clara',
-        'Primavera Quente',
-        'Primavera Brilhante',
-        'Inverno Frio',
-        'Inverno Brilhante',
-        'Inverno Escuro',
-        'Outono Suave',
-        'Outono Quente',
-        'Outono Escuro',
-      ].each do |pal| %>
-        <%= f.check_box pal, { :multiple => true }, pal, nil %>
+      <% PALETTES.each do |pal| %>
+        <%= f.check_box :palette, { :multiple => true }, pal, nil %>
         <%= f.label pal %> <br>
       <% end %>
     </p>
-
   </p>
+
   <p>
     <%= f.label :contrast %>
-    <%= f.select :contrast, [
-      'Alto',
-      'Médio',
-      'Baixo',
-    ] %>
+    <p>
+      <% CONTRASTS.each do |contrast| %>
+        <%= f.check_box :contrast, { :multiple => true }, contrast, nil %>
+        <%= f.label contrast %> <br>
+      <% end %>
+    </p>
   </p>
+
   <p>
     <%= f.label :style %>
-    <%= f.select :style, [
-      'Casual',
-      'Moderno',
-      'Elegante',
-      'Romântico',
-      'Sensual',
-      'Clássico',
-      'Criativo',
-    ] %>
+    <p>
+      <% STYLES.each do |style| %>
+        <%= f.check_box :style, { :multiple => true }, style, nil %>
+        <%= f.label style %> <br>
+      <% end %>
+    </p>
   </p>
+
   <p>
     <%= f.label :body_type %>
-    <%= f.select :body_type, [
-      'Triângulo',
-      'Triângulo Invertido',
-      'Ampulheta',
-      'Oval',
-      'Retângulo',
-    ] %>
+    <p>
+      <% BODY_TYPES.each do |body_type| %>
+        <%= f.check_box :body_type, { :multiple => true }, body_type, nil %>
+        <%= f.label body_type %> <br>
+      <% end %>
     </p>
+  </p>
+    
   <p>
     <%= f.submit 'Save Categories' %>
   </p>
