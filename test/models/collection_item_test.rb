@@ -1,6 +1,6 @@
 require "test_helper"
 
-class UserProductCategoryTest < ActiveSupport::TestCase
+class CollectionItemTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

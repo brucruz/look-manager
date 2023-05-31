@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :user_product_categories, dependent: :destroy
-  has_many :products, through: :user_product_categories
+  has_many :colletion_items, dependent: :destroy
+  has_many :products, through: :colletion_items
 end

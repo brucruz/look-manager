@@ -9,6 +9,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.string :store_url
       t.text :description
       t.string :currency
+      t.string :images, array: true, default: []
       t.decimal :old_price, precision: 10, scale: 2
       t.decimal :price, precision: 10, scale: 2
       t.integer :installment_quantity

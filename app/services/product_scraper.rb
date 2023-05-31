@@ -47,7 +47,7 @@ class ProductScraper < Tanakai::Base
     scraped_product[:store_url] = "https://oqvestir.com.br"
     scraped_product[:store] = "OQVestir"
 
-    images = product_div.css(".slick-cloned img").map do |img|
+    scraped_product[:images] = product_div.css(".slick-cloned img").map do |img|
       img.attr("src")
     end
 
@@ -65,9 +65,9 @@ class ProductScraper < Tanakai::Base
     scraped_product[:id] = @product.id
 
     # Add the scraped product images to the database
-    images.each do |image|
-      @product.product_images.create(url: image)
-    end
+    # images.each do |image|
+    #   @product.product_images.create(url: image)
+    # end
 
     @@scraped_product = scraped_product
   end

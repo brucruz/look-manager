@@ -1,39 +1,31 @@
 <p style="color: green"><%= notice %></p>
 
-<% @product.product_images.each do |image| %>
-  <img src="<%= image.url %>" style="max-width:15vw">
-<% end %>
 <%= render @product %>
 
-<div id="<%= dom_id @product.user_product_categories.find_by(user_id: current_user) %>">
-  <p>
-    <strong>Category:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).category %>
-  </p>
-
+<div id="<%= dom_id @product.collection_items.find_by(user_id: current_user) %>">
   <p>
     <strong>Color:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).color %>
+    <%= @product.collection_items.find_by(user_id: current_user).color %>
   </p>
 
   <p>
     <strong>Palette:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).palette %>
+    <%= @product.collection_items.find_by(user_id: current_user).palette %>
   </p>
 
   <p>
     <strong>Contrast:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).contrast %>
+    <%= @product.collection_items.find_by(user_id: current_user).contrast %>
   </p>
 
   <p>
     <strong>Style:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).style %>
+    <%= @product.collection_items.find_by(user_id: current_user).style %>
   </p>
 
   <p>
     <strong>Body Type:</strong>
-    <%= @product.user_product_categories.find_by(user_id: current_user).body_type %>
+    <%= @product.collection_items.find_by(user_id: current_user).body_type %>
   </p>
 </div>
 

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  product: one
+  color: ["MyString"]
+  palette: ["MyString"]
+  contrast: ["MyString"]
+  style: ["MyString"]
+  body_type: ["MyString"]
+
+two:
+  user: two
+  product: two
+  color: ["MyString"]
+  palette: ["MyString"]
+  contrast: ["MyString"]
+  style: ["MyString"]
+  body_type: ["MyString"]

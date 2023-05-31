@@ -1,6 +1,6 @@
 <h1>Product Information</h1>
-<% @product.product_images.each do |image| %>
-  <img src="<%= image.url %>" style="max-width:15vw">
+<% @product.images.each do |image| %>
+  <img src="<%= image %>" style="max-width:15vw">
 <% end %>
 <p>Name: <%= @product.name %></p>
 <p>Brand: <%= @product.brand %></p>
@@ -11,11 +11,7 @@
 <p>Available: <%= @product.available %></p>
 
 <h2>Classify this product so you can find it easily and recommend it to your clients:</h2>
-<%= form_with model: [ @product, @product.user_product_categories.build ] do |f| %>
-  <p>
-    <%= f.label :category %>
-    <%= f.text_field :category %>
-  </p>
+<%= form_with model: [ @product, @product.collection_items.build ] do |f| %>
   <p>
     <%= f.label :color %>
     <%= f.text_field :color %>
@@ -37,7 +33,7 @@
         'Outono Quente',
         'Outono Escuro',
       ].each do |pal| %>
-        <%= f.check_box :palette, { :multiple => true }, :pal, nil %>
+        <%= f.check_box pal, { :multiple => true }, pal, nil %>
         <%= f.label pal %> <br>
       <% end %>
     </p>

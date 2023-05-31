@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   get '/product/result', to: 'products#result'
 
   resources :products do
-    resources :product_images
-    resources :product_sizes
-    resources :user_product_categories
+    resources :collection_items
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

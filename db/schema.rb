@@ -14,21 +14,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_222859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "product_images", force: :cascade do |t|
-    t.string "url"
+  create_table "collection_items", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.bigint "product_id", null: false
+    t.string "color", default: [], array: true
+    t.string "palette", default: [], array: true
+    t.string "contrast", default: [], array: true
+    t.string "style", default: [], array: true
+    t.string "body_type", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_images_on_product_id"
-  end
-
-  create_table "product_sizes", force: :cascade do |t|
-    t.string "size"
-    t.boolean "available"
-    t.bigint "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_sizes_on_product_id"
+    t.index ["product_id"], name: "index_collection_items_on_product_id"
+    t.index ["user_id", "product_id"], name: "index_collection_items_on_user_id_and_product_id", unique: true
+    t.index ["user_id"], name: "index_collection_items_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -40,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_222859) do
     t.string "store_url"
     t.text "description"
     t.string "currency"
+    t.string "images", default: [], array: true
     t.decimal "old_price", precision: 10, scale: 2
     t.decimal "price", precision: 10, scale: 2
     t.integer "installment_quantity"
@@ -49,22 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_222859) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_products_on_name"
     t.index ["url"], name: "index_products_on_url", unique: true
-  end
-
-  create_table "user_product_categories", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "product_id", null: false
-    t.string "category"
-    t.string "color"
-    t.string "palette"
-    t.string "contrast"
-    t.string "style"
-    t.string "body_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_user_product_categories_on_product_id"
-    t.index ["user_id", "product_id"], name: "index_user_product_categories_on_user_id_and_product_id", unique: true
-    t.index ["user_id"], name: "index_user_product_categories_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,8 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_222859) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "product_images", "products"
-  add_foreign_key "product_sizes", "products"
-  add_foreign_key "user_product_categories", "products"
-  add_foreign_key "user_product_categories", "users"
+  add_foreign_key "collection_items", "products"
+  add_foreign_key "collection_items", "users"
 end
