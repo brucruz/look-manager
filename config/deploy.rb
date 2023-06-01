@@ -1,5 +1,5 @@
 # Change these
-server '143.198.126.72', port: 443, roles: [:web, :app, :db], primary: true
+server '143.198.126.72', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'https://github.com/brucruz/look-manager.git'
 set :application,     'look-manager'
