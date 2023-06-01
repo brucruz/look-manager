@@ -36,6 +36,7 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2.1'
   gem 'capistrano-rbenv', '~> 2.2'
   gem 'ed25519', '~> 1.3'
+  gem 'net-ssh', '>= 6.0.2'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
