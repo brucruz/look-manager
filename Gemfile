@@ -4,15 +4,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.6"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "bootsnap", require: false
 # gem 'chromedriver-helper'
 gem "cssbundling-rails"
 gem "devise"
+# gem 'ed25519', '>= 1.2', '< 2.0'
 gem "jbuilder"
 gem "jsbundling-rails"
+gem 'net-ssh', '>= 6.0.2'
 gem 'tanakai'
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
+gem 'rbnacl', '< 5.0', :require => false                                                                                                                                                                
+gem 'rbnacl-libsodium', :require => false
 gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
@@ -45,5 +50,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem "debug"
 end
