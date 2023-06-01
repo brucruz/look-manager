@@ -1,7 +1,7 @@
 # Change these
 server '143.198.126.72', port: 22, roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'https://github.com/brucruz/look-manager.git'
+set :repo_url,        'git@github.com:brucruz/look-manager.git'
 set :application,     'look-manager'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
