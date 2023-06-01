@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.6"
+ruby "3.2.2"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
-gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+# gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 gem "bootsnap", require: false
 # gem 'chromedriver-helper'
 gem "cssbundling-rails"
@@ -12,12 +12,12 @@ gem "devise"
 # gem 'ed25519', '>= 1.2', '< 2.0'
 gem "jbuilder"
 gem "jsbundling-rails"
-gem 'net-ssh', '>= 6.0.2'
+# gem 'net-ssh', '>= 6.0.2'
 gem 'tanakai'
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
-gem 'rbnacl', '< 5.0', :require => false                                                                                                                                                                
-gem 'rbnacl-libsodium', :require => false
+# gem 'rbnacl', '< 5.0', :require => false                                                                                                                                                                
+# gem 'rbnacl-libsodium', :require => false
 gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
@@ -30,11 +30,12 @@ group :development, :test do
 end
 
 group :development do
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'bcrypt_pbkdf', '~> 1.1'
+  gem 'capistrano', '~> 3.17'
+  gem 'capistrano-rails', '~> 1.6', '>= 1.6.2'
+  gem 'capistrano-passenger', '~> 0.2.1'
+  gem 'capistrano-rbenv', '~> 2.2'
+  gem 'ed25519', '~> 1.3'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
