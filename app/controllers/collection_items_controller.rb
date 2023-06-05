@@ -1,6 +1,5 @@
 class CollectionItemsController < ApplicationController
   def create
-    debugger
     @product = Product.find(params[:product_id])
     @collection_item = @product.collection_items.create({ user_id: current_user.id, **collection_item_params })
     redirect_to product_path(@product)

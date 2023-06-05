@@ -5,6 +5,7 @@ ruby "3.2.2"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
 gem "bootsnap", require: false
+gem "capybara"
 gem "cssbundling-rails"
 gem "devise"
 gem "jbuilder"
@@ -41,7 +42,6 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
