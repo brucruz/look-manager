@@ -65,5 +65,12 @@ class OqvestirScraper
     Capybara.current_driver = :selenium_chrome_headless
     Capybara.app_host = 'https://www.oqvestir.com.br'
     Capybara.ignore_hidden_elements = false
+
+    Capybara.register_driver :chrome do |app|
+      Capybara::Selenium::Driver.new app, browser: :chrome,
+        options: Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu disable-dev-shm-usage])
+    end
+
+    Capybara.javascript_driver = :chrome
   end
 end
