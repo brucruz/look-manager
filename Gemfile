@@ -15,8 +15,10 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "sprockets-rails"
 gem "stimulus-rails"
+gem "selenium-webdriver"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "webdrivers"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -42,6 +44,4 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "selenium-webdriver"
-  gem "webdrivers"
 end
