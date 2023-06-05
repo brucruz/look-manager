@@ -31,7 +31,6 @@ class ProductsController < ApplicationController
     scraped_product = spider.scrape
      
     #  scraped_product = ProductScraper.scraped_product
-
     # Redirect to the result page and pass the scraped data
     redirect_to product_result_path(id: scraped_product.id)
   end
