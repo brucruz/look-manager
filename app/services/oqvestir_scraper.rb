@@ -10,13 +10,13 @@ class OqvestirScraper
   end
 
   def scrape
-    begin
+    # begin
       puts 'Started to scrape page: ' + @url
       page.driver.browser.manage.window.maximize
       page.driver.browser.manage.delete_all_cookies
 
 
-      sleep 5 # Add a delay of 5 seconds
+      # sleep 5 # Add a delay of 5 seconds
 
       visit(@url)
 
@@ -59,9 +59,9 @@ class OqvestirScraper
       @product = Product.create(scraped_product)
 
       @product
-    rescue => exception
-      puts exception
-    end
+    # rescue => exception
+    #   puts exception
+    # end
   end
 
   def getValue(text)
