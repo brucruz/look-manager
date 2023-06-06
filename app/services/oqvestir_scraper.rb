@@ -74,11 +74,15 @@ class OqvestirScraper
 
     chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
 
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w[headless disable-dev-shm-usage], **chrome_opts }
+    )
+
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
         app,
         browser: :chrome,
-        desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
+        desired_capabilities: capabilities
       )
     end
 
