@@ -11,7 +11,6 @@ class OqvestirScraper
 
   def scrape
     begin
-      debugger
       puts 'Started to scrape page: ' + @url
       visit(@url)
 
