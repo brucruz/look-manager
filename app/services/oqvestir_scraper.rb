@@ -17,7 +17,6 @@ class OqvestirScraper
 
 
       sleep 5 # Add a delay of 5 seconds
-      debugger
 
       visit(@url)
 
@@ -79,9 +78,13 @@ class OqvestirScraper
 
     chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
 
+    # options = Selenium::WebDriver::Chrome::Options.new
+    # options.add_arguments("--headless");
+    # options.add_arguments("--start-maximized");
+
     chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
 
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    capabilities = Selenium::WebDriver::Chrome::Options.new(
       chromeOptions: { args: %w[headless disable-dev-shm-usage], **chrome_opts }
     )
 
