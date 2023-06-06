@@ -16,8 +16,6 @@ class OqvestirScraper
       page.driver.browser.manage.delete_all_cookies
 
 
-      # sleep 5 # Add a delay of 5 seconds
-
       visit(@url)
 
       product_div = find('.product-essential')
@@ -78,21 +76,24 @@ class OqvestirScraper
 
     chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
 
-    # options = Selenium::WebDriver::Chrome::Options.new
-    # options.add_arguments("--headless");
-    # options.add_arguments("--start-maximized");
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument("--headless")
+    options.add_argument("--start-maximized")
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
 
     chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
 
-    capabilities = Selenium::WebDriver::Chrome::Options.new(
-      chromeOptions: { args: %w[headless disable-dev-shm-usage], **chrome_opts }
-    )
+    # capabilities = Selenium::WebDriver::Chrome::Options.new(
+    #   chromeOptions: { args: %w[headless disable-dev-shm-usage], **chrome_opts }
+    # )
 
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
         app,
         browser: :chrome,
-        desired_capabilities: capabilities
+        # desired_capabilities: capabilities
+        options: { **options, **chrome_opts },
       )
     end
 
