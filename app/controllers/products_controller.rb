@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
     #  ProductScraper.process(@product_url)
     spider = ProductSpider.new(@product_url)
     scraped_product = spider.scrape
+    debugger
      
     #  scraped_product = ProductScraper.scraped_product
     # Redirect to the result page and pass the scraped data

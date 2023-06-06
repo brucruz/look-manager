@@ -12,6 +12,13 @@ class OqvestirScraper
   def scrape
     begin
       puts 'Started to scrape page: ' + @url
+      page.driver.browser.manage.window.maximize
+      page.driver.browser.manage.delete_all_cookies
+
+
+      sleep 5 # Add a delay of 5 seconds
+      debugger
+
       visit(@url)
 
       product_div = find('.product-essential')
