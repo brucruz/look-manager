@@ -121,6 +121,8 @@ GEM
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (>= 0.6, < 0.8)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     headless (2.3.1)
@@ -318,6 +320,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
+  figaro
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

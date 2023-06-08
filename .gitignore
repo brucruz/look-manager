@@ -37,3 +37,6 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# ignore application.yml with sensitive data
+/config/application.yml

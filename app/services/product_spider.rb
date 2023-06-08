@@ -35,8 +35,6 @@ class ProductSpider
     case hostname
     when 'oqvestir.com.br'
       OqvestirScraper
-    # when 'anotherdomain.com'
-    #   AnotherScraper
     else
       nil
     end

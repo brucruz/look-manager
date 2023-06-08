@@ -8,6 +8,7 @@ gem "bootsnap", require: false
 gem "capybara"
 gem "cssbundling-rails"
 gem "devise"
+gem 'figaro'
 gem "jbuilder"
 gem "jsbundling-rails"
 gem 'tanakai'
