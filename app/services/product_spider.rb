@@ -1,4 +1,4 @@
-class ProductSpider
+class ProductScraper
   def initialize(url)
     @url = url
   end

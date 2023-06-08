@@ -26,11 +26,9 @@ class ProductsController < ApplicationController
     end
 
     # If the product is not on the database, start the scraping process
-    #  ProductScraper.process(@product_url)
-    spider = ProductSpider.new(@product_url)
+    spider = ProductScraper.new(@product_url)
     scraped_product = spider.scrape
      
-    #  scraped_product = ProductScraper.scraped_product
     # Redirect to the result page and pass the scraped data
     redirect_to product_result_path(id: scraped_product.id)
   end
