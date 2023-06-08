@@ -1,7 +1,7 @@
 require 'capybara'
 require 'capybara/dsl'
 
-class OqvestirScraper
+class Old::OqvestirScraper
   include Capybara::DSL
 
   def initialize(url)
