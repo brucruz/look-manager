@@ -34,9 +34,9 @@ class ProductScraper
   def scraper_class_for(hostname)
     case hostname
     when 'oqvestir.com.br'
-      OqvestirScraper
+      ChromiumScraperService
     when 'shop2gether.com.br'
-      OqvestirScraper
+      ChromiumScraperService
     else
       nil
     end
