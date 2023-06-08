@@ -35,6 +35,8 @@ class ProductScraper
     case hostname
     when 'oqvestir.com.br'
       OqvestirScraper
+    when 'shop2gether.com.br'
+      OqvestirScraper
     else
       nil
     end
