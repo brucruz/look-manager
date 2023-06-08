@@ -12,66 +12,87 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_area :name %>
+    <%= form.label :name %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_area :name, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :sku, style: "display: block" %>
-    <%= form.text_area :sku %>
+    <%= form.label :sku %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :sku, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :brand, style: "display: block" %>
-    <%= form.text_area :brand %>
+    <%= form.label :brand %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :brand, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :store, style: "display: block" %>
-    <%= form.text_area :store %>
+    <%= form.label :store %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :store, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :url, style: "display: block" %>
-    <%= form.text_area :url %>
+    <%= form.label :url %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :url, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :store_url, style: "display: block" %>
-    <%= form.text_area :store_url %>
+    <%= form.label :store_url %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :store_url, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
+
+  <div>
+    <%= form.label :description %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_area :description, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.label :old_price %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :old_price, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :old_price, style: "display: block" %>
-    <%= form.text_field :old_price %>
+    <%= form.label :price %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :price, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
+    <%= form.label :installment_quantity %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :installment_quantity, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :installment_quantity, style: "display: block" %>
-    <%= form.number_field :installment_quantity %>
+    <%= form.label :installment_value %>
+    <div class="relative mt-2 mb-4 rounded-md">
+      <%= form.text_field :installment_value, class: 'block w-full md:w-96 rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :installment_value, style: "display: block" %>
-    <%= form.text_field :installment_value %>
+  <div class="pb-4 flex align-center">
+    <%= form.label :available, class: 'pr-4' %>
+    <%= form.check_box :available%>
   </div>
 
-  <div>
-    <%= form.label :available, style: "display: block" %>
-    <%= form.check_box :available %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="py-2">
+    <%= form.submit class: 'btn-primary' %>
   </div>
 <% end %>

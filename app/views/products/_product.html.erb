@@ -1,62 +1,64 @@
 <div id="<%= dom_id product %>">
-  <p>
+  <p class="pb-1">
     <strong>Name:</strong>
     <%= product.name %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Sku:</strong>
     <%= product.sku %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Brand:</strong>
     <%= product.brand %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Store:</strong>
     <%= product.store %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Url:</strong>
     <%= product.url %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Store url:</strong>
     <%= product.store_url %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Description:</strong>
-    <%= product.description %>
+    <%= simple_format(product.description) %>
   </p>
 
-  <p>
-    <strong>Old price:</strong>
-    <%= product.old_price %>
-  </p>
+  <% product.old_price.present? do %>
+    <p class="pb-1">
+      <strong>Old price:</strong>
+      <%= product.old_price class: "line-through" %>
+    </p>
+    <% end %>
 
-  <p>
+  <p class="pb-1">
     <strong>Price:</strong>
     <%= product.price %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Installment quantity:</strong>
     <%= product.installment_quantity %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Installment value:</strong>
     <%= product.installment_value %>
   </p>
 
-  <p>
+  <p class="pb-1">
     <strong>Available:</strong>
-    <%= product.available %>
+    <%= product.available ? "Yes" : "No" %>
   </p>
 
 </div>

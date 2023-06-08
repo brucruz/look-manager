@@ -14,7 +14,7 @@
 ## After deploying to production
 
 - [ ] Add other sources:
-  - [ ] Shoptogether
+  - [x] Shop2gether
   - [ ] Offpremium
   - [ ] Renner
   - [ ] Zara

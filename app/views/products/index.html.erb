@@ -1,14 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<div class="p-8">
+  <p style="color: green"><%= notice %></p>
 
-<h1>Products</h1>
+  <h1>Products</h1>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
-  <% end %>
-</div>
+  <div id="products">
+    <% @products.each do |product| %>
+      <div class="p-4 my-4 bg-gray-50 drop-shadow">
+        <%= render product %>
+        <div>
+          <%= link_to "Show this product", product, class: 'link-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<%= link_to "New product", new_product_path %>
+  <%= link_to "New product", new_product_path, class: 'link-primary' %>
+
+</div> 
