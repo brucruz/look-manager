@@ -48,6 +48,7 @@ class OffpremiumScraperService
     product["installment_quantity"] = product_data["commertialOffers"][0]["installment"]["count"]
     product["installment_value"] = product_data["commertialOffers"][0]["installment"]["value"].to_f
     product["available"] = product_data["offers"]["offers"][0]["availability"] === "http://schema.org/InStock" ? true : false
+    product["sizes"] = product_data["isVariantOf"]["variants"].map { |variant| { size: variant["attributes"][0]["value"], available: variant["offers"]["offers"][0]["availability"] === "https://schema.org/InStock", url: uri.hostname + "/" + variant["slug"] } }
 
     @product = Product.create(product)
 

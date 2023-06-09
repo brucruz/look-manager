@@ -1,11 +1,5 @@
 <h1>Product Information</h1>
 
-<div class="grid gap-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 p-2 my-4 bg-gray-50 drop-shadow">
-  <% @product.images.each do |image| %>
-    <img src="<%= image %>" >
-  <% end %>
-</div>
-
 <%= render @product %>
 
 <h2>Who would fit this product best?</h2>

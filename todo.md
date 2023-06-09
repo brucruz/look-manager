@@ -15,7 +15,7 @@
 
 - [ ] Add other sources:
   - [x] Shop2gether
-  - [ ] Offpremium
+  - [x] Offpremium
   - [ ] Renner
   - [ ] Zara
 - [ ] Add timezone to all timestamps

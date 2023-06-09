@@ -1,8 +1,13 @@
 <div id="<%= dom_id product %>">
-  <p class="pb-1">
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
+  <div class="grid gap-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 p-2 my-4 bg-gray-50 drop-shadow">
+    <% product.images.each do |image| %>
+      <img src="<%= image %>" >
+    <% end %>
+  </div>
+
+  <h3 class="pb-1 text-xl text-semibold underline underline-offset-4 text-gray-950 hover:text-gray-500">
+    <%= link_to product.name, product.url, :target => "_blank" %>
+  </h3>
 
   <p class="pb-1">
     <strong>Sku:</strong>
@@ -17,11 +22,6 @@
   <p class="pb-1">
     <strong>Store:</strong>
     <%= product.store %>
-  </p>
-
-  <p class="pb-1">
-    <strong>Url:</strong>
-    <%= product.url %>
   </p>
 
   <p class="pb-1">
@@ -61,4 +61,15 @@
     <%= product.available ? "Yes" : "No" %>
   </p>
 
+  <%# # TODO: Add sizes %>
+  <% if product.sizes.length > 0 %>
+    <div class="pb-1">
+      <strong>Sizes:</strong>
+      <ul class="flex">
+        <% product.sizes.each do |size| %>
+          <li class="pr-4"><%= link_to size['size'] + ": " + (size['available'] ? "Available" : "Not Available"), "https://"+size['url'], target: '_blank', class: "link-primary" %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
