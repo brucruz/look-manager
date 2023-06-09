@@ -1,67 +1,65 @@
-<div class="p-8">
-  <h1>Product Information</h1>
+<h1>Product Information</h1>
 
-  <div class="grid gap-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 p-2 my-4 bg-gray-50 drop-shadow">
-    <% @product.images.each do |image| %>
-      <img src="<%= image %>" >
-    <% end %>
-  </div>
-  
-  <%= render @product %>
-
-  <h2>Who would fit this product best?</h2>
-  
-  <%= form_with model: [ @product, @product.collection_items.build ] do |f| %>
-    <div class="pb-4">
-      <p class="block font-semibold text-gray-900 py-2">Color Palettes:</p>
-      <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-        <% PALETTES.each do |pal| %>
-          <div>
-            <%= f.check_box :palette, { :multiple => true }, pal, nil %>
-            <%= f.label pal %> <br>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="pb-4">
-      <p class="block font-semibold text-gray-900 py-2">Contrasts:</p>
-      <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-        <% CONTRASTS.each do |contrast| %>
-          <div>
-            <%= f.check_box :contrast, { :multiple => true }, contrast, nil %>
-            <%= f.label contrast %> <br>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="pb-4">
-      <p class="block font-semibold text-gray-900 py-2">Styles:</p>
-      <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-        <% STYLES.each do |style| %>
-        <div>
-          <%= f.check_box :style, { :multiple => true }, style, nil %>
-          <%= f.label style %> <br>
-        </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="pb-4">
-      <p class="block font-semibold text-gray-900 py-2">Body Types:</p>
-      <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-        <% BODY_TYPES.each do |body_type| %>
-        <div>
-          <%= f.check_box :body_type, { :multiple => true }, body_type, nil %>
-          <%= f.label body_type %> <br>
-        </div>
-        <% end %>
-      </div>
-    </div>
-      
-    <div class="py-4">
-      <%= f.submit 'Add to collection', class: "btn-primary" %>
-    </div>
+<div class="grid gap-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 p-2 my-4 bg-gray-50 drop-shadow">
+  <% @product.images.each do |image| %>
+    <img src="<%= image %>" >
   <% end %>
 </div>
+
+<%= render @product %>
+
+<h2>Who would fit this product best?</h2>
+
+<%= form_with model: [ @product, @product.collection_items.build ] do |f| %>
+  <div class="pb-4">
+    <p class="block font-semibold text-gray-900 py-2">Color Palettes:</p>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <% PALETTES.each do |pal| %>
+        <div>
+          <%= f.check_box :palette, { :multiple => true }, pal, nil %>
+          <%= f.label pal %> <br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pb-4">
+    <p class="block font-semibold text-gray-900 py-2">Contrasts:</p>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <% CONTRASTS.each do |contrast| %>
+        <div>
+          <%= f.check_box :contrast, { :multiple => true }, contrast, nil %>
+          <%= f.label contrast %> <br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pb-4">
+    <p class="block font-semibold text-gray-900 py-2">Styles:</p>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <% STYLES.each do |style| %>
+      <div>
+        <%= f.check_box :style, { :multiple => true }, style, nil %>
+        <%= f.label style %> <br>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pb-4">
+    <p class="block font-semibold text-gray-900 py-2">Body Types:</p>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <% BODY_TYPES.each do |body_type| %>
+      <div>
+        <%= f.check_box :body_type, { :multiple => true }, body_type, nil %>
+        <%= f.label body_type %> <br>
+      </div>
+      <% end %>
+    </div>
+  </div>
+    
+  <div class="py-4">
+    <%= f.submit 'Add to collection', class: "btn-primary" %>
+  </div>
+<% end %>
