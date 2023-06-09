@@ -7,14 +7,25 @@ class ChromiumScraperService
   end
 
   def scrape
-    uri = ENV['SCRAPER_SERVICE_URL']
+    begin 
+      uri = ENV['SCRAPER_SERVICE_URL']
 
-    response = Net::HTTP.get(URI(uri + "product/web?url=#{@url}"))
-    scraped_product = JSON.parse(response)
-    scraped_product.delete("sizes")
+      response = Net::HTTP.get(URI(uri + "product/web?url=#{@url}"))
+      scraped_product = JSON.parse(response)
 
-    @product = Product.create(scraped_product)
+      if scraped_product["message"].present?
+        p scraped_product
+        raise scraped_product["message"]
+      end
 
-    @product
+      scraped_product.delete("sizes")
+
+      @product = Product.create(scraped_product)
+
+      @product
+    rescue => e
+      p e
+      raise e
+    end
   end
 end

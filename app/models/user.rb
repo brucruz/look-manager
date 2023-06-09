@@ -6,4 +6,18 @@ class User < ApplicationRecord
 
   has_many :colletion_items, dependent: :destroy
   has_many :products, through: :colletion_items
+
+  ROLES = {
+    admin: 'admin',
+    user: 'user',
+    stylist: 'stylist'
+  }
+
+  def admin?
+    role == ROLES[:admin]
+  end
+
+  def stylist?
+    role == ROLES[:stylist]
+  end
 end
