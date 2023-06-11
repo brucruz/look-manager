@@ -15,8 +15,8 @@
 - installment_quantity: integer | null
 - installment_value: decimal(10,2) | null
 - available: boolean
-<!-- - sizes: json -->
-- images: jsonb | null
+- sizes: jsonb array
+- images: string array
 - created_at: timestamp with timezone
 - updated_at: timestamp with timezone
 
