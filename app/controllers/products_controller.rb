@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     # list all the product that have collection_item related to the current_user
-    @products = Product.joins(:collection_items).where("user_id = ?", current_user.id)
+    @products = Product.all
+    # @products = Product.joins(:collection_items).where("user_id = ?", current_user.id)
   end
 
   # GET /products/1 or /products/1.json
@@ -28,7 +29,7 @@ class ProductsController < ApplicationController
     # If the product is not on the database, start the scraping process
     spider = ProductScraper.new(@product_url)
     scraped_product = spider.scrape
-     
+
     # Redirect to the result page and pass the scraped data
     redirect_to product_result_path(id: scraped_product.id)
   end
