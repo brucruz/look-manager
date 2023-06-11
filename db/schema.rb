@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_09_180254) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_11_151626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,8 +22,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_180254) do
     t.string "contrast", default: [], array: true
     t.string "style", default: [], array: true
     t.string "body_type", default: [], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
     t.index ["product_id"], name: "index_collection_items_on_product_id"
     t.index ["user_id", "product_id"], name: "index_collection_items_on_user_id_and_product_id", unique: true
     t.index ["user_id"], name: "index_collection_items_on_user_id"
@@ -44,8 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_180254) do
     t.integer "installment_quantity"
     t.decimal "installment_value", precision: 10, scale: 2
     t.boolean "available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
     t.jsonb "sizes", default: [], array: true
     t.index ["name"], name: "index_products_on_name"
     t.index ["url"], name: "index_products_on_url", unique: true
@@ -60,8 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_180254) do
     t.string "first_name"
     t.string "last_name"
     t.string "role", default: "user"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
