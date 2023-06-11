@@ -9,4 +9,8 @@
   <% end %>
 </div>
 
-<%= link_to "New Product", new_product_path, class: 'link-primary' %>
+<ul class="flex py-4 flex-wrap">
+  <li class="my-2 mr-4"><%= link_to "New Product", new_product_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to "All Products", products_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to "My Collection", collection_path, class: 'link-primary' %></li>
+</ul>
