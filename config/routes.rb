@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :collection_items,
-    only: [:create]
+    except: [:index]
   end
 
-  resources :collection_items, except: [:create, :index]
+  # resources :collection_items, except: [:create, :index]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "home#index"
+  root 'home#index'
 end

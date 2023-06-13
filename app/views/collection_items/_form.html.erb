@@ -1,15 +1,14 @@
-<%= render @product %>
-
-<h2>Who would fit this product best?</h2>
-
-<%= form_with model: [ @product, @product.collection_items.build ] do |f| %>
+<%=  form_with(model: [
+    @product,
+    @collection_item
+  ] ) do |form| %>
   <div class="pb-4">
     <p class="block font-semibold text-gray-900 py-2">Color Palettes:</p>
     <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       <% PALETTES.each do |pal| %>
         <div>
-          <%= f.check_box :palette, { :multiple => true }, pal, nil %>
-          <%= f.label pal %> <br>
+          <%= form.check_box(:palette, { :multiple => true }, pal, nil) %>
+          <%= form.label pal %> <br>
         </div>
       <% end %>
     </div>
@@ -20,8 +19,8 @@
     <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       <% CONTRASTS.each do |contrast| %>
         <div>
-          <%= f.check_box :contrast, { :multiple => true }, contrast, nil %>
-          <%= f.label contrast %> <br>
+          <%= form.check_box :contrast, { :multiple => true }, contrast, nil %>
+          <%= form.label contrast %> <br>
         </div>
       <% end %>
     </div>
@@ -32,8 +31,8 @@
     <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       <% STYLES.each do |style| %>
       <div>
-        <%= f.check_box :style, { :multiple => true }, style, nil %>
-        <%= f.label style %> <br>
+        <%= form.check_box :style, { :multiple => true }, style, nil %>
+        <%= form.label style %> <br>
       </div>
       <% end %>
     </div>
@@ -44,14 +43,15 @@
     <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       <% BODY_TYPES.each do |body_type| %>
       <div>
-        <%= f.check_box :body_type, { :multiple => true }, body_type, nil %>
-        <%= f.label body_type %> <br>
+        <%= form.check_box :body_type, { :multiple => true }, body_type, nil %>
+        <%= form.label body_type %> <br>
       </div>
       <% end %>
     </div>
   </div>
-    
-  <div class="py-4">
-    <%= f.submit 'Add to collection', class: "btn-primary" %>
-  </div>
+
+  <ul class="py-4 flex items-center">
+      <li class="pr-4"><%= form.submit 'Save to My Collection', class: "btn-primary" %></li>
+      <li class="pr-4"><%= link_to 'Back', :back, class: "btn-secondary" %></li>
+  </ul>
 <% end %>
