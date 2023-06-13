@@ -1,2 +1,2 @@
 web: bundle exec puma -C config/puma.rb
-release: bin/setup
+release: bundle install && rake db:migrate
