@@ -10,6 +10,11 @@
   </h3>
 
   <p class="pb-1">
+    <strong>Last updated:</strong>
+    <%= time_ago_in_words(product.updated_at) + " ago" %>
+  </p>
+
+  <p class="pb-1">
     <strong>Sku:</strong>
     <%= product.sku %>
   </p>
