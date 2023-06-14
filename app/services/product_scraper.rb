@@ -37,6 +37,8 @@ class ProductScraper
       ChromiumScraperService
     when 'shop2gether.com.br'
       ChromiumScraperService
+    when 'alayabrand.com'
+      ChromiumScraperService
     when 'offpremium.com.br'
       OffpremiumScraperService
     else
