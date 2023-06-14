@@ -1,21 +1,53 @@
 <div id="<%= dom_id collection_item %>">
-  <p>
-    <strong>Palette:</strong>
-    <%= collection_item.palette %>
-  </p>
+  <% if collection_item.palette.length > 0 %>
+    <p>
+      <strong>Palette:</strong>
+      <div class="flex">
+        <% collection_item.palette.each do |palette| %>
+          <div class="block m-2 p-2 text-sm bg-gray-700 text-white font-semibold rounded-full shadow-sm w-fit focus:bg-gray-700">
+            <%= palette.titlecase %>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 
-  <p>
-    <strong>Contrast:</strong>
-    <%= collection_item.contrast %>
-  </p>
+  <% if collection_item.contrast.length > 0 %>
+    <p>
+      <strong>Contrast:</strong>
+      <div class="flex">
+        <% collection_item.contrast.each do |contrast| %>
+          <div class="block m-2 p-2 text-sm bg-gray-700 text-white font-semibold rounded-full shadow-sm w-fit focus:bg-gray-700">
+            <%= contrast.titlecase %>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 
-  <p>
-    <strong>Style:</strong>
-    <%= collection_item.style %>
-  </p>
+  <% if collection_item.style.length > 0 %>
+    <p>
+      <strong>Style:</strong>
+      <div class="flex">
+        <% collection_item.style.each do |style| %>
+          <div class="block m-2 p-2 text-sm bg-gray-700 text-white font-semibold rounded-full shadow-sm w-fit focus:bg-gray-700">
+            <%= style.titlecase %>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 
-  <p>
-    <strong>Body Type:</strong>
-    <%= collection_item.body_type %>
-  </p>
+  <% if collection_item.body_type.length > 0 %>
+    <p>
+      <strong>Body Type:</strong>
+      <div class="flex">
+        <% collection_item.body_type.each do |body_type| %>
+          <div class="block m-2 p-2 text-sm bg-gray-700 text-white font-semibold rounded-full shadow-sm w-fit focus:bg-gray-700">
+            <%= body_type.titlecase %>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 </div>
