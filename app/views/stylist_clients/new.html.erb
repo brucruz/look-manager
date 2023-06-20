@@ -9,7 +9,7 @@
 
     <ul class="py-4 flex items-center">
       <li class="pr-4"><%= form.submit 'Save Client', class: "btn-primary", data: {turbo_frame: "_top"} %></li>
-      <li class="pr-4"><%= link_to 'Cancel', product_path(params[:product]), class: "btn-secondary", data: {turbo_frame: "_top"} %></li>
+      <li class="pr-4"><%= link_to 'Cancel', :back, class: "btn-secondary", data: {turbo_frame: "_top"} %></li>
     </ul>
   <% end %>
 <%end%>
