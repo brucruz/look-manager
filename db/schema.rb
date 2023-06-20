@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_11_151626) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_15_233559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_151626) do
     t.string "body_type", default: [], array: true
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.string "clients", default: [], array: true
     t.index ["product_id"], name: "index_collection_items_on_product_id"
     t.index ["user_id", "product_id"], name: "index_collection_items_on_user_id_and_product_id", unique: true
     t.index ["user_id"], name: "index_collection_items_on_user_id"
@@ -51,6 +52,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_151626) do
     t.index ["url"], name: "index_products_on_url", unique: true
   end
 
+  create_table "stylist_clients", force: :cascade do |t|
+    t.bigint "stylist_id", null: false
+    t.string "name"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["stylist_id"], name: "index_stylist_clients_on_stylist_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -68,4 +77,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_151626) do
 
   add_foreign_key "collection_items", "products"
   add_foreign_key "collection_items", "users"
+  add_foreign_key "stylist_clients", "users", column: "stylist_id"
 end

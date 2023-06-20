@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   get '/collection', to: 'collection_items#index'
 
   resources :products do
-    resources :collection_items,
-    except: [:index]
+    resources :collection_items, except: [:index] do
+    end
   end
+
+  resources :stylist_clients
 
   # resources :collection_items, except: [:create, :index]
 
