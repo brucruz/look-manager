@@ -1,7 +1,7 @@
 require 'net/http'
 require "uri"
 
-class ChromiumScraperService
+class Scrapers::ChromiumScraperService
   def initialize(url)
     @url = url
   end
@@ -18,11 +18,11 @@ class ChromiumScraperService
         raise scraped_product["message"]
       end
 
-      scraped_product.delete("sizes")
+      scraped_product
 
-      @product = Product.create(scraped_product)
+      # @product = Product.create(scraped_product)
 
-      @product
+      # @product
     rescue => e
       p e
       raise e

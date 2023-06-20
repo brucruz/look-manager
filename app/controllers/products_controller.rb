@@ -27,12 +27,13 @@ class ProductsController < ApplicationController
     end
 
     # If the product is not on the database, start the scraping process
-    spider = ProductScraper.new(@product_url)
-    scraped_product = spider.scrape
+    scraper = Scrapers::ProductScraper.new(@product_url)
+    scraped_product = scraper.scrape
+
+    @product = Product.create(scraped_product)
 
     # Redirect to the result page and pass the scraped data
-    redirect_to product_path(id: scraped_product.id)
-    # redirect_to product_result_path(id: scraped_product.id)
+    redirect_to product_path(id: @product.id)
   end
 
   # GET /products/1/edit
@@ -98,7 +99,9 @@ class ProductsController < ApplicationController
       :price,
       :installment_quantity,
       :installment_value,
-      :available
+      :available,
+      images: [],
+      sizes: [],
     )
   end
 end

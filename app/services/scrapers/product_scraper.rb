@@ -1,4 +1,4 @@
-class ProductScraper
+class Scrapers::ProductScraper
   def initialize(url)
     @url = url
   end
@@ -9,7 +9,8 @@ class ProductScraper
 
     if scraper_class
       scraper = scraper_class.new(@url)
-      scraper.scrape
+      product = scraper.scrape
+      product
     else
       raise "No scraper available for the given URL"
     end
@@ -24,6 +25,8 @@ class ProductScraper
     nil
   end
 
+  private
+
   def remove_www(hostname)
     if hostname.starts_with?('www.')
       hostname.slice!('www.')
@@ -31,16 +34,18 @@ class ProductScraper
     hostname
   end
 
+  private
+
   def scraper_class_for(hostname)
     case hostname
     when 'oqvestir.com.br'
-      ChromiumScraperService
+      Scrapers::ChromiumScraperService
     when 'shop2gether.com.br'
-      ChromiumScraperService
+      Scrapers::ChromiumScraperService
     when 'alayabrand.com'
-      ChromiumScraperService
+      Scrapers::ChromiumScraperService
     when 'offpremium.com.br'
-      OffpremiumScraperService
+      Scrapers::OffpremiumScraperService
     else
       nil
     end
