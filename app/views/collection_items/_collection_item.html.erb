@@ -50,4 +50,17 @@
       </div>
     </p>
   <% end %>
+
+  <% if collection_item.clients.length > 0 %>
+    <p>
+      <strong>Clients:</strong>
+      <div class="flex">
+        <% collection_item.clients.each do |client| %>
+          <div class="block m-2 p-2 text-sm bg-gray-700 text-white font-semibold rounded-full shadow-sm w-fit focus:bg-gray-700">
+            <%= client.titlecase %>
+          </div>
+        <% end %>
+      </div>
+    </p>
+  <% end %>
 </div>

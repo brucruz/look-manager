@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "new_stylist_client" do %>
+  <%= form_for(@stylist_client, url: stylist_clients_path(@stylist_client, product: params[:product])) do |form| %>
+    <div class="pb-4">
+      <div class>
+          <%= form.label :name, 'Add new client:', class: "block font-semibold text-gray-900 py-2" %>
+          <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <ul class="py-4 flex items-center">
+      <li class="pr-4"><%= form.submit 'Save Client', class: "btn-primary", data: {turbo_frame: "_top"} %></li>
+      <li class="pr-4"><%= link_to 'Cancel', product_path(params[:product]), class: "btn-secondary", data: {turbo_frame: "_top"} %></li>
+    </ul>
+  <% end %>
+<%end%>

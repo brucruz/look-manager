@@ -8,7 +8,7 @@
       <% PALETTES.each do |pal| %>
         <div>
           <%= form.check_box(:palette, { :multiple => true }, pal, nil) %>
-          <%= form.label pal %> <br>
+          <%= form.label pal %>
         </div>
       <% end %>
     </div>
@@ -20,7 +20,7 @@
       <% CONTRASTS.each do |contrast| %>
         <div>
           <%= form.check_box :contrast, { :multiple => true }, contrast, nil %>
-          <%= form.label contrast %> <br>
+          <%= form.label contrast %>
         </div>
       <% end %>
     </div>
@@ -32,7 +32,7 @@
       <% STYLES.each do |style| %>
       <div>
         <%= form.check_box :style, { :multiple => true }, style, nil %>
-        <%= form.label style %> <br>
+        <%= form.label style %>
       </div>
       <% end %>
     </div>
@@ -44,10 +44,26 @@
       <% BODY_TYPES.each do |body_type| %>
       <div>
         <%= form.check_box :body_type, { :multiple => true }, body_type, nil %>
-        <%= form.label body_type %> <br>
+        <%= form.label body_type %>
       </div>
       <% end %>
     </div>
+  </div>
+
+  <div class="pb-4">
+    <p class="block font-semibold text-gray-900 py-2">Who would look great on this:</p>
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <% @clients.each do |client| %>
+        <div>
+          <%= form.check_box :clients, { :multiple => true }, client.name, nil %>
+          <%= form.label client.name %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag "new_stylist_client" do %>
+      <div class="pr-4 py-4"><%= link_to "New Client", new_stylist_client_path({ product: @product.id }), class: "link-primary" %></d>
+    <% end %>
   </div>
 
   <ul class="py-4 flex items-center">
