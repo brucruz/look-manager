@@ -2,7 +2,7 @@ require "nokogiri"
 require 'net/http'
 require "uri"
 
-class Scapers:OffpremiumScraperService
+class Scrapers::OffpremiumScraperService
   def initialize(url)
     @url = url
   end
