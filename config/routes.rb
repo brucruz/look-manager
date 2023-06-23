@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  # create a route for product result where the scraped data will be displayed
+  
   get '/product/result', to: 'products#result'
 
   get '/collection', to: 'collection_items#index'
@@ -12,10 +12,10 @@ Rails.application.routes.draw do
 
   resources :stylist_clients
 
-  # resources :collection_items, except: [:create, :index]
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
   root 'home#index'
+
+  # Good Job dashboard
+  authenticate :user, ->(user) { user.role === 'admin' } do
+    mount GoodJob::Engine => 'good_job'
+  end
 end
