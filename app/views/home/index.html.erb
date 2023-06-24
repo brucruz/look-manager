@@ -13,4 +13,7 @@
   <li class="my-2 mr-4"><%= link_to "New Product", new_product_path, class: 'link-primary' %></li>
   <li class="my-2 mr-4"><%= link_to "All Products", products_path, class: 'link-primary' %></li>
   <li class="my-2 mr-4"><%= link_to "My Collection", collection_path, class: 'link-primary' %></li>
+  <% if current_user.role === 'admin' %>
+    <li class="my-2 mr-4"><%= link_to "Good Job Dashboard", good_job_path, class: 'link-primary' %></li>
+  <% end %>
 </ul>
