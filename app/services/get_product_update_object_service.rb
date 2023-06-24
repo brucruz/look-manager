@@ -1,19 +1,8 @@
 ## it receives a product object and a hash with the new attributes, then it updates the product and returns it
 class GetProductUpdateObjectService
   def initialize(product, new_attributes)
-    @old_attributes = product.slice(
-      :name, 
-      :sku, 
-      :brand, 
-      :description, 
-      :images, 
-      :sizes, 
-      :old_price, 
-      :price, 
-      :installment_quantity, 
-      :installment_value
-    )
-    @new_attributes = new_attributes
+    @old_attributes = get_params(product)
+    @new_attributes = get_params(new_attributes)
   end
 
   def call
@@ -75,5 +64,24 @@ class GetProductUpdateObjectService
     end
     
     product_to_update
+  end
+
+  def get_params(object)
+    if object.is_a?(Hash)
+      object = Product.new(object)
+    end
+    
+    object.slice(
+      :name, 
+      :sku, 
+      :brand, 
+      :description, 
+      :images, 
+      :sizes, 
+      :old_price, 
+      :price, 
+      :installment_quantity, 
+      :installment_value
+    )
   end
 end
