@@ -19,10 +19,6 @@ class Scrapers::ChromiumScraperService
       end
 
       scraped_product
-
-      # @product = Product.create(scraped_product)
-
-      # @product
     rescue => e
       p e
       raise e

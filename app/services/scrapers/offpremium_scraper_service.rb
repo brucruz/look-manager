@@ -50,9 +50,7 @@ class Scrapers::OffpremiumScraperService
     product["available"] = product_data["offers"]["offers"][0]["availability"] === "http://schema.org/InStock" ? true : false
     product["sizes"] = product_data["isVariantOf"]["variants"].map { |variant| { size: variant["attributes"][0]["value"], available: variant["offers"]["offers"][0]["availability"] === "https://schema.org/InStock", url: uri.hostname + "/" + variant["slug"] } }
 
-    @product = Product.create(product)
-
-    @product
+    product
   end
 end
 
