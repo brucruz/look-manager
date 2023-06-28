@@ -34,4 +34,4 @@
 - [ ] implement error handling
 - [ ] implement add product to collection
 - [x] implement UI design
-- [ ] Bug: if searching for a product that already is in the database, nothing happens
+- [x] Bug: if searching for a product that already is in the database, nothing happens
