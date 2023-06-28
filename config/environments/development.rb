@@ -9,13 +9,13 @@ Rails.application.configure do
     # on_thread_error: -> (exception) { Sentry.capture_exception(exception) },
     execution_mode: :async,
     queues: '*',
-    max_threads: 1,
+    max_threads: 2,
     poll_interval: 30,
     shutdown_timeout: 25,
     enable_cron: true,
     cron: {
       'product-monitoring': {
-        cron: '0 3 * * *',
+        cron: '0 3 */7 * *',
         class: 'AddProductsToQueueJob'
       },
     },

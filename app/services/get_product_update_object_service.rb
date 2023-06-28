@@ -62,6 +62,9 @@ class GetProductUpdateObjectService
         product_to_update[:installment_value] = @old_attributes[:installment_value]
       end
     end
+
+    # set updated_at attribute as now
+    product_to_update[:updated_at] = Time.now
     
     product_to_update
   end
