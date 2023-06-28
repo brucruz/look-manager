@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
 
     # If the product is already in the database, redirect to the result page and pass the product data
     if @product.present?
-      redirect_to product_result_path(id: @product.id)
+      redirect_to product_path(id: @product.id)
       return
     end
 
