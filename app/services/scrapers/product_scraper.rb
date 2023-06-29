@@ -9,8 +9,11 @@ class Scrapers::ProductScraper
 
     if scraper_class
       scraper = scraper_class.new(@url)
-      product = scraper.scrape
-      product
+      result = scraper.scrape
+      product = result[:product]
+      related_products = result[:related_products]
+
+      return product
     else
       raise "No scraper available for the given URL"
     end

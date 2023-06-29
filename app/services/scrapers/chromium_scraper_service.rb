@@ -11,14 +11,17 @@ class Scrapers::ChromiumScraperService
       uri = ENV['SCRAPER_SERVICE_URL']
 
       response = Net::HTTP.get(URI(uri + "product/web?url=#{@url}"))
-      scraped_product = JSON.parse(response)
+      result = JSON.parse(response)
 
-      if scraped_product["message"].present?
-        p scraped_product
-        raise scraped_product["message"]
+      product = result["product"]
+      related_products = result["related"]
+
+      if result["message"].present?
+        p result
+        raise result["message"]
       end
 
-      scraped_product
+      return { product: product, related_products: related_products }
     rescue => e
       p e
       raise e
