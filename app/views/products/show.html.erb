@@ -16,7 +16,7 @@
     <ul class="flex py-4 flex-wrap">
       <li class="pr-4"><%= link_to "Edit classification", edit_product_collection_item_path(@product, @product.collection_items.find_by(user_id: current_user)), class: "link-primary" %></li>
       <li class="pr-4"><%= link_to "Back to products", products_path, "data-turbo-frame": "_top", class: "link-primary" %></li>
-      <li class="pr-4"><%= link_to "New product", new_product_path, class: 'link-primary' %></li>
+      <li class="pr-4"><%= link_to "New product", new_product_path, "data-turbo-frame": "_top", class: 'link-primary' %></li>
     </ul>
   <%end%>
 <%end%>
