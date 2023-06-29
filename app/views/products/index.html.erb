@@ -22,7 +22,9 @@
 <% end %>
 
 <main id="products">
-  <span class="text-sm font-medium text-gray-900"><%= pluralize(@products.length, 'product') %> found</span>
+  <p class="text-sm font-medium text-gray-900">Found <%= pluralize(@count, 'product') %></p>
+
+  <div class="w-fit mx-auto my-4"><%== pagy_nav(@pagy) %></div>
 
   <% @products.each do |product| %>
     <article class="p-4 my-4 bg-gray-50 drop-shadow">
@@ -36,4 +38,6 @@
       </ul>
     </article>
   <% end %>
+
+  <div class="w-fit mx-auto my-4"><%== pagy_nav(@pagy) %></div>
 </main>

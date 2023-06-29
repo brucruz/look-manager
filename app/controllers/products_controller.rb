@@ -1,13 +1,16 @@
 class ProductsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
   def index
-    # list all the product that have collection_item related to the current_user
-    if params[:search]
-      @products = Product.search(params[:search])
+    if params[:search].present? && params[:search] != ''
+      @pagy, @products = pagy((Product.search(params[:search])), items: 10)
+      @count = Product.search(params[:search]).count
     else
-      @products = Product.all
+      @pagy, @products = pagy((Product.all), items: 10)
+      @count = Product.count
     end
   end
 

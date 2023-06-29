@@ -1,4 +1,6 @@
 module ProductsHelper
+  include Pagy::Frontend
+
   def get_new_urls(urls)
     existing_urls = Product.bulk_existing_urls(urls)
 
