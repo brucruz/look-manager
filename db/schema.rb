@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_004144) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_005026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "collection_items", force: :cascade do |t|
     t.bigint "user_id", null: false
