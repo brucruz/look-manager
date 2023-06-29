@@ -2,6 +2,10 @@ class Product < ApplicationRecord
   has_many :collection_items, dependent: :destroy
   has_many :users, through: :collection_items
 
+  def self.bulk_existing_urls(urls)
+    Product.where(url: urls).pluck(:url)
+  end
+    
   include PgSearch::Model
   pg_search_scope :search,
                 against: {
