@@ -13,6 +13,9 @@ class Scrapers::ProductScraper
       product = result[:product]
       related_products = result[:related_products]
 
+      # Create job to scrape related products
+      AddRelatedProductsJob.perform_later(related_products)
+
       return product
     else
       raise "No scraper available for the given URL"
