@@ -23,7 +23,7 @@
   - [x] by name
   - [x] by brand
   - [x] by description
-- [ ] Automatically store product recommendations (more products from the same brand)
+- [x] Automatically store product recommendations (more products from the same brand)
 - [x] Job to update infos for a product (once a week)
 - [x] create closet item migration to store a client online closet: with recomended items
 - [x] create stylist client table to store all relationship between clients and stylists
