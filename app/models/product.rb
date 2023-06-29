@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_many :users, through: :collection_items
 
   include PgSearch::Model
-  pg_search_scope :search_product,
+  pg_search_scope :search,
                 against: {
                   name: 'A',
                   brand: 'A',

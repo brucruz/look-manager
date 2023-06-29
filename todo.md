@@ -19,10 +19,10 @@
   - [ ] Renner
   - [ ] Zara
 - [x] Add timezone to all timestamps
-- [ ] Search for characteristics (collection and all productions)
-  - [ ] by name
-  - [ ] by brand
-  - [ ] by color / description
+- [x] Search for characteristics (collection and all productions)
+  - [x] by name
+  - [x] by brand
+  - [x] by description
 - [ ] Automatically store product recommendations (more products from the same brand)
 - [x] Job to update infos for a product (once a week)
 - [x] create closet item migration to store a client online closet: with recomended items

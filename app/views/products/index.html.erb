@@ -8,6 +8,19 @@
   <li class="my-2 mr-4"><%= link_to "My collection", collection_path, class: 'link-primary' %></li>
 </ul>
 
+<%= form_tag(products_path, method: 'get') do |f| %>
+  <div>
+    <%= label_tag :search, 'Search products:' %>
+    <div class="relative mt-2 rounded-md">
+      <%= text_field_tag :search, params[:search], placeholder: 'What you are looking for?', class: 'block w-full rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+    </div>
+  </div>
+  <ul class="flex items-center py-2">
+    <li class="my-2 mr-4"><%= submit_tag 'Search', class: 'btn-primary' %></li>
+    <li class="my-2 mr-4"><%= link_to 'Clear', products_path, class: 'link-primary' %></li>
+  </ul>
+<% end %>
+
 <div id="products">
   <% @products.each do |product| %>
     <div class="p-4 my-4 bg-gray-50 drop-shadow">

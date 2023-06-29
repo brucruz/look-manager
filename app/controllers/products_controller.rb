@@ -4,8 +4,11 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     # list all the product that have collection_item related to the current_user
-    @products = Product.all
-    # @products = Product.joins(:collection_items).where('user_id = ?', current_user.id)
+    if params[:search]
+      @products = Product.search(params[:search])
+    else
+      @products = Product.all
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -87,6 +90,7 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(
+      :search,
       :name,
       :sku,
       :brand,
