@@ -22,7 +22,7 @@ class AddSearchableColumnToProducts < ActiveRecord::Migration[7.0]
     remove_column :products, :searchable
 
     execute <<-SQL
-    drop function f_unaccent(text);
-  SQL
+      drop function f_unaccent(text);
+    SQL
   end
 end
