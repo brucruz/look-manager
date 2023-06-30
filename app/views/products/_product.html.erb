@@ -12,6 +12,16 @@
     <%= link_to product.name, product.url, :target => "_blank" %>
   </h3>
 
+  <div class="pb-1">
+    <% if product.old_price.present? %>
+      <span class="line-through"><%= product.currency %> <%= product.old_price %></span> <br />
+    <% end %>
+
+    <span class="font-medium"><%= product.currency %> <%= product.price %></span> <br />
+
+    <span class="font-light text-sm">(<%= product.installment_quantity %>x of <%= product.currency %> <%= product.installment_value %>)</span>
+  </div>
+
   <p class="pb-1">
     <strong>Last updated:</strong>
     <%= time_ago_in_words(product.updated_at) + " ago" %>
@@ -25,18 +35,6 @@
   <p class="pb-1">
     <strong>Description:</strong>
     <%= simple_format(product.description) %>
-  </p>
-
-  <% product.old_price.present? do %>
-    <p class="pb-1">
-      <strong>Old price:</strong>
-      <%= product.old_price class: "line-through" %>
-    </p>
-    <% end %>
-
-  <p class="pb-1">
-    <strong>Price:</strong>
-    <%= product.currency %> <%= product.price %> (<%= product.installment_quantity %> x of <%= product.currency %> <%= product.installment_value %>)
   </p>
 
   <p class="pb-1">
