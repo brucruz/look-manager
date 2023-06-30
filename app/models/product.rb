@@ -17,7 +17,8 @@ class Product < ApplicationRecord
                 using: {
                   tsearch: {
                     prefix: true,
-                    dictionary: 'portuguese'
+                    dictionary: 'portuguese',
+                    tsvector_column: 'searchable'
                   },
                   trigram: {
                     word_similarity: true
