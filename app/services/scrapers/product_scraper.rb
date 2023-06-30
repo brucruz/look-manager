@@ -14,7 +14,9 @@ class Scrapers::ProductScraper
       related_products = result[:related_products]
 
       # Create job to scrape related products
-      AddRelatedProductsJob.perform_later(related_products)
+      if related_products.present? && related_products.count > 0
+        AddRelatedProductsJob.perform_later(related_products)
+      end
 
       return product
     else
