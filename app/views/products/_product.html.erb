@@ -5,6 +5,9 @@
     <% end %>
   </div>
 
+  <p class="text-sm font-medium text-gray-700">
+    <%= link_to product.store.upcase, "https://#{product.store_url}", :target => "_blank", class: 'underline underline-offset-4 hover:text-gray-500' %> • <%= product.brand.upcase %>
+  </p>
   <h3 class="pb-1 text-xl text-semibold underline underline-offset-4 text-gray-950 hover:text-gray-500">
     <%= link_to product.name, product.url, :target => "_blank" %>
   </h3>
@@ -17,21 +20,6 @@
   <p class="pb-1">
     <strong>Sku:</strong>
     <%= product.sku %>
-  </p>
-
-  <p class="pb-1">
-    <strong>Brand:</strong>
-    <%= product.brand %>
-  </p>
-
-  <p class="pb-1">
-    <strong>Store:</strong>
-    <%= product.store %>
-  </p>
-
-  <p class="pb-1">
-    <strong>Store url:</strong>
-    <%= product.store_url %>
   </p>
 
   <p class="pb-1">
