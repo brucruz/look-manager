@@ -32,6 +32,5 @@
 - [x] Implement reactive behavior on views (hotwire?)
 - [ ] implement en / pt-br translations (i10n)
 - [ ] implement error handling
-- [ ] implement add product to collection
 - [x] implement UI design
 - [x] Bug: if searching for a product that already is in the database, nothing happens
