@@ -46,7 +46,7 @@
   <% if product.sizes.length > 0 %>
     <div class="pb-1">
       <strong>Sizes:</strong>
-      <ul class="flex">
+      <ul class="flex flex-wrap gap-1">
         <% product.sizes.each do |size| %>
           <li class="pr-4"><%= link_to size['size'] + ": " + (size['available'] ? "Available" : "Not Available"), "https://"+size['url'], target: '_blank', class: "link-primary" %></li>
         <% end %>
