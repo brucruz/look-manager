@@ -1,0 +1,33 @@
+<%= link_to product_path(id: id), class: "group block max-w-sm" do %>
+<%# <a href="#" class="group block max-w-sm"> %>
+  <div class="relative h-[350px] sm:h-[450px]">
+    <img
+      src="<%= main_image %>"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
+    />
+
+    <img
+      src="<%= hover_image %>"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100"
+    />
+  </div>
+
+  <div class="mt-3">
+    <p class="text-xs font-medium text-gray-700">
+      <span><%= store %></span> • <span><%= brand %></span>
+    </p>
+
+    <h3
+      class="text-sm text-gray-700 group-hover:underline group-hover:underline-offset-4"
+    >
+      <%= title %>
+    </h3>
+
+    <p class="mt-1.5 max-w-[40ch] text-xs text-gray-500">
+      <%= description %>
+    </p>
+  </div>
+<%# </a> %>
+<% end %>
