@@ -32,4 +32,12 @@ class ProductCardComponent < ViewComponent::Base
   def brand
     @product.brand.upcase
   end
+
+  def old_price
+    number_to_currency(@product.old_price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
+  end
+
+  def price
+    number_to_currency(@product.price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
+  end
 end
