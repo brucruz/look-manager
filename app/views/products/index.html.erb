@@ -22,7 +22,13 @@
 <% end %>
 
 <main id="products">
-  <p class="text-sm font-medium text-gray-900">Found <%= pluralize(@count, 'product') %></p>
+  <p class="text-sm font-medium text-gray-900">
+    <% if @products.count < 1 %>
+      Found <%= pluralize(@count, 'product') %>
+    <% else %>
+      Found <%= @products.count %> of <%= pluralize(@count, 'product') %>
+    <% end %>
+  </p>
 
   <div class="w-fit mx-auto my-4"><%== pagy_nav(@pagy) %></div>
 
