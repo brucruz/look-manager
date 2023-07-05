@@ -3,11 +3,12 @@
 - [ ] Add other sources:
   - [x] Shop2gether
   - [x] Offpremium
-  - [ ] Renner
   - [ ] Zara
+  - [ ] Renner
 - [ ] Add price migration to log price everytime a product is scraped
 - [ ] implement en / pt-br translations (i10n)
 - [ ] implement error handling
+- [ ] implement error logging with Sentry or alternative
 
 # Done
 

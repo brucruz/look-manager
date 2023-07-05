@@ -13,12 +13,12 @@ Rails.application.configure do
     poll_interval: 30,
     shutdown_timeout: 25,
     enable_cron: true,
-    cron: {
-      'product-monitoring': {
-        cron: '0 3 */7 * *',
-        class: 'AddProductsToQueueJob'
-      },
-    },
+    # cron: {
+    #   'product-monitoring': {
+    #     cron: '0 3 */7 * *',
+    #     class: 'AddProductsToQueueJob'
+    #   },
+    # },
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
