@@ -11,6 +11,12 @@ class Scrapers::ChromiumScraperService
       uri = ENV['SCRAPER_SERVICE_URL']
 
       response = Net::HTTP.get(URI(uri + "product/web?url=#{@url}"))
+
+      if response.kind_of? Net::HTTPError do
+        p response
+        raise Exception.new(response)
+      end
+
       result = JSON.parse(response)
 
       product = result["product"]
