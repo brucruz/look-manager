@@ -9,6 +9,11 @@
 - [ ] implement en / pt-br translations (i10n)
 - [ ] implement error handling
 - [ ] implement error logging with Sentry or alternative
+- [ ] add filter by items in the collection
+- [ ] add notification system
+- [ ] create notification for updates on products in the collection (price and availability)
+- [ ] configure email sending
+- [ ] create email notification
 
 # Done
 
