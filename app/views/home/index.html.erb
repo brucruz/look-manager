@@ -11,7 +11,7 @@
 
 <ul class="flex py-4 flex-wrap">
   <li class="my-2 mr-4"><%= link_to t('views.home.index.links.new_product'), new_product_path, class: 'link-primary' %></li>
-  <li class="my-2 mr-4"><%= link_to t('views.home.index.links.all_product'), products_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.home.index.links.all_products'), products_path, class: 'link-primary' %></li>
   <li class="my-2 mr-4"><%= link_to t('views.home.index.links.my_collection'), collection_path, class: 'link-primary' %></li>
   <% if current_user.role === 'admin' %>
     <li class="my-2 mr-4"><%= link_to "Good Job Dashboard", good_job_path, class: 'link-primary' %></li>

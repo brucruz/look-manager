@@ -1,32 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Products</h1>
+<h1><%= t('views.products.index.title') %></h1>
 
 <ul class="flex py-4 flex-wrap">
-  <li class="my-2 mr-4"><%= link_to "Home", root_path, class: 'link-primary' %></li>
-  <li class="my-2 mr-4"><%= link_to "New product", new_product_path, class: 'link-primary' %></li>
-  <li class="my-2 mr-4"><%= link_to "My collection", collection_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.products.index.links.home'), root_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.products.index.links.new_product'), new_product_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.products.index.links.my_collection'), collection_path, class: 'link-primary' %></li>
 </ul>
 
 <%= form_tag(products_path, method: 'get') do |f| %>
   <div>
-    <%= label_tag :search, 'Search products:' %>
+    <%= label_tag :search, t('views.products.index.input.label') %>
     <div class="relative mt-2 rounded-md">
-      <%= text_field_tag :search, params[:search], placeholder: 'What you are looking for?', class: 'block w-full rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+      <%= text_field_tag :search, params[:search], placeholder: t('views.products.index.input.placeholder'), class: 'block w-full rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
     </div>
   </div>
   <ul class="flex items-center py-2">
-    <li class="my-2 mr-4"><%= submit_tag 'Search', class: 'btn-primary' %></li>
-    <li class="my-2 mr-4"><%= link_to 'Clear', products_path, class: 'link-primary' %></li>
+    <li class="my-2 mr-4"><%= submit_tag t('views.products.index.search_action'), class: 'btn-primary' %></li>
+    <li class="my-2 mr-4"><%= link_to t('views.products.index.clear_action'), products_path, class: 'link-primary' %></li>
   </ul>
 <% end %>
 
 <main id="products">
   <p class="text-sm font-medium text-gray-900">
-    <% if @products.count < 1 %>
-      Found <%= pluralize(@count, 'product') %>
+    <% if @products.count == 0 %>
+      <%= t('views.products.index.no_results') %>
     <% else %>
-      Found <%= @products.count %> of <%= pluralize(@count, 'product') %>
+      <%= t('views.products.index.results.showing', count: @products.count) %> <%= t('views.products.index.results.total', count: @count) %>
     <% end %>
   </p>
 

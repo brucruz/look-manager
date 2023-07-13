@@ -1,0 +1,22 @@
+pt-BR:
+  views:
+    products:
+      index:
+        title: "Produtos"
+        input:
+          label: "Buscar produtos:"
+          placeholder: "O que você está procurando?"
+        search_action: "Buscar"
+        clear_action: "Limpar"
+        links:
+          home: "Página inicial"
+          new_product: "Novo produto"
+          my_collection: "Minha curadoria"
+        results:
+          showing:
+            one: "Mostrando 1 produto"
+            other: "Mostrando %{count} produtos"
+          total:
+            one: "de 1 produto encontrado"
+            other: "de %{count} produtos encontrados"
+        no_results: "Nenhum produto encontrado"
