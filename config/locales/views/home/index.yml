@@ -1,0 +1,11 @@
+pt-BR:
+  views:
+    home:
+      index:
+        welcome: "Bem-vinda, %{name}!"
+        sign_in_action: "Entrar"
+        sign_out_action: "Sair"
+        links:
+          new_product: "Adicionar novo produto"
+          all_products: "Listar produtos"
+          my_collection: "Minha curadoria"

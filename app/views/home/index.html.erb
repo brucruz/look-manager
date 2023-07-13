@@ -2,17 +2,17 @@
 
 <div class="pb-4">
   <% if user_signed_in? %> 
-    <div class="pb-2"> Welcome, <%= current_user.first_name %> </div>
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn-secondary' %> 
+    <div class="pb-2"><%= t('views.home.index.welcome', name: current_user.first_name ) %></div>
+    <%= button_to t('views.home.index.sign_out_action'), destroy_user_session_path, method: :delete, class: 'btn-secondary' %> 
   <% else %>
-    <%= button_to "Sign in", new_user_session_path %> 
+    <%= button_to t('views.home.index.sign_in_action'), new_user_session_path %> 
   <% end %>
 </div>
 
 <ul class="flex py-4 flex-wrap">
-  <li class="my-2 mr-4"><%= link_to "New Product", new_product_path, class: 'link-primary' %></li>
-  <li class="my-2 mr-4"><%= link_to "All Products", products_path, class: 'link-primary' %></li>
-  <li class="my-2 mr-4"><%= link_to "My Collection", collection_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.home.index.links.new_product'), new_product_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.home.index.links.all_product'), products_path, class: 'link-primary' %></li>
+  <li class="my-2 mr-4"><%= link_to t('views.home.index.links.my_collection'), collection_path, class: 'link-primary' %></li>
   <% if current_user.role === 'admin' %>
     <li class="my-2 mr-4"><%= link_to "Good Job Dashboard", good_job_path, class: 'link-primary' %></li>
   <% end %>
