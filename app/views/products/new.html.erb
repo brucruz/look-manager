@@ -1,21 +1,21 @@
-<h1>Search Product</h1>
+<h1><%= t('views.products.new.title') %></h1>
 
 <%= form_tag('/products/new', method: 'get') do |f| %>
   <div>
-    <%= label_tag 'product_url', 'Product URL:' %>
+    <%= label_tag 'product_url', t('views.products.new.input.label') %>
     <div class="relative mt-2 rounded-md">
-      <%= url_field_tag 'product_url', nil, placeholder: 'Type the product link to search it...', class: 'block w-full rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+      <%= url_field_tag 'product_url', nil, placeholder: t('views.products.new.input.placeholder'), class: 'block w-full rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
     </div>
   </div>
   <div class="py-2">
-    <%= submit_tag 'Search', class: 'btn-primary' %>
+    <%= submit_tag t('views.products.new.action'), class: 'btn-primary' %>
   </div>
 <% end %>
 
 <br>
 
 <div>
-  <%= link_to "Back to products", products_path, class: "link-primary" %>
+  <%= link_to t('views.products.new.links.back'), products_path, class: "link-primary" %>
 </div>
 
-  <%= link_to "Home", root_path, class: "link-primary" %>
+  <%= link_to t('views.products.new.links.home'), root_path, class: "link-primary" %>

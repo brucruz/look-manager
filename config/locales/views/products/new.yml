@@ -1,0 +1,12 @@
+pt-BR:
+  views:
+    products:
+      new:
+        title: "Buscar Produto"
+        input:
+          label: "Link do produto:"
+          placeholder: "Digite o link do produto para buscar suas informações..."
+        action: "Buscar"
+        links:
+          back: "Voltar para a lista de produtos"
+          home: "Página inicial"

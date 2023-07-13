@@ -12,7 +12,9 @@ module LookManager
     config.load_defaults 7.0
 
     # Configuration for I19n load path
-    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    # config/application.rb
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
     # Configuration for default locale
     config.i18n.default_locale = "pt-BR"
 
