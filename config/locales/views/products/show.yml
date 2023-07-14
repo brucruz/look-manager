@@ -1,0 +1,6 @@
+pt-BR:
+  views:
+    products:
+      show:
+        last_updated: "Última atualização: %{date} atrás"
+        sizes: "Tamanhos"

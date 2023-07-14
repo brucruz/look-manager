@@ -7,6 +7,18 @@
   - [ ] Renner
 - [ ] Add price migration to log price everytime a product is scraped
 - [ ] implement en / pt-br translations (i10n)
+  - [x] devise
+  - [x] root page
+  - [x] new product page
+  - [x] products index page
+  - [x] product show page
+  - [ ] collection index page
+- improve pages:
+  - [x] product index page
+  - [ ] product show page
+  - [ ] product new page
+  - [ ] home page
+  - [ ] collection index page
 - [ ] implement error handling
 - [ ] implement error logging with Sentry or alternative
 - [ ] add filter by items in the collection

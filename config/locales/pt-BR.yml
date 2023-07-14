@@ -1,4 +1,6 @@
 pt-BR:
+  available: Disponível
+  not_available: Indisponível
   activerecord:
     errors:
       messages:
