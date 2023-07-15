@@ -52,8 +52,8 @@
           Pre Order
         </strong> %>
 
-        <div class="mt-8 flex justify-between">
-          <div class="max-w-[35ch] space-y-2">
+        <div class="mt-8 flex justify-between flex-col">
+          <div class="max-w-[35ch] space-y-2 flex-auto">
             <p class="text-sm font-medium text-gray-700">
               <span><%= @product.store %></span> • <span><%= @product.brand %></span>
             </p>
@@ -124,9 +124,10 @@
             </div> %>
           </div>
 
-          <div>
-            <p class="text-lg line-through"><%= number_to_currency(@product.old_price) %></p>
-            <p class="text-lg font-bold"><%= number_to_currency(@product.price) %></p>
+          <div class="flex flex-col justify-end py-2">
+            <span class="text-gray-400 md:text-lg line-through"><%= t('views.products.show.price.from') %><%= number_to_currency(@product.old_price) %></span>
+            <span class="text-gray-950 md:text-lg font-bold"><%= t('views.products.show.price.to') %><%= number_to_currency(@product.price) %></span>
+            <span class="text-gray-950 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: @product.installment_quantity, price: number_to_currency(@product.installment_value)) %></span>
           </div>
         </div>
 
