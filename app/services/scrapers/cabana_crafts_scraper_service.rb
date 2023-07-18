@@ -11,8 +11,6 @@ class Scrapers::CabanaCraftsScraperService
     uri = URI.parse(@url)
 
     uri_path = uri.path
-    # get the product id from the url (the last part of the path between the last "-"" and the last "/")
-    product_id = uri_path.split("-").last.split("/").first
 
     response = Net::HTTP.get_response(uri)
 
@@ -59,6 +57,12 @@ class Scrapers::CabanaCraftsScraperService
       { size: size, available: available, url: @url}
     end
 
-    return { product: product }
+    related_products = doc.css('div.products-wrap div.lista-produto div.images a').map do |product|
+      slug = product["href"]
+      url = "https://cabanacrafts.com.br#{slug}"
+      url
+    end
+
+    return { product: product, related_products: related_products }
   end
 end
