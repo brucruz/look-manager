@@ -43,8 +43,8 @@ class Scrapers::CabanaCraftsScraperService
     product["store_url"] = "cabanacrafts.com.br"
     product["currency"] = "R$"
     product["images"] = scraped_product["images"].map { |image| image["url"] }
-    product["old_price"] = scraped_product["on_sale"] ? scraped_product["sale_price"] : nil
-    product["price"] = scraped_product["price"]
+    product["old_price"] = scraped_product["on_sale"] ? scraped_product["price"] : nil
+    product["price"] = scraped_product["sale_price"]
     product["installment_quantity"] = scraped_product["installments"].length
     product["installment_value"] = scraped_product["installments"].second.to_f
     product["available"] = scraped_product["available"]
@@ -59,7 +59,7 @@ class Scrapers::CabanaCraftsScraperService
 
     related_products = doc.css('div.products-wrap div.lista-produto div.images a').map do |product|
       slug = product["href"]
-      url = "https://cabanacrafts.com.br#{slug}"
+      url = "https://www.cabanacrafts.com.br#{slug}"
       url
     end
 
