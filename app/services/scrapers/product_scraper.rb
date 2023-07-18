@@ -56,6 +56,8 @@ class Scrapers::ProductScraper
       Scrapers::OffpremiumScraperService
     when 'cabanacrafts.com.br'
       Scrapers::CabanaCraftsScraperService
+    when 'nannananna.com.br'
+      Scrapers::NannaScraperService
     else
       nil
     end

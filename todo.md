@@ -4,6 +4,7 @@
   - [x] Shop2gether
   - [x] Offpremium
   - [x] [Cabana Crafts](https://www.cabanacrafts.com.br/)
+  - [x] [Nanna](https://www.nannananna.com.br/)
   - [ ] [Carol Mac Dowell](https://carolmacdowell.com.br/)
   - [ ] [Manolita](https://www.manolita.com.br/)
   - [ ] [Quattre](https://usequattre.com/)
@@ -12,6 +13,13 @@
   - [ ] [Moon Eyewear](https://www.mooneyewear.com.br/)
   - [ ] [Tai Dai](https://taidai.com.br/)
   - [ ] [Uze](https://uzeoculos.com)
+  - [ ] [Feixe](https://www.feixeacessorios.com.br/)
+  - [ ] [Studio Laundry](https://www.laundrysp.com/)
+  - [ ] [Carlotte](https://carlotte.com.br/)
+  - [ ] [Archai](https://archai.store/)
+  - [ ] [Cyan Shoes](https://www.usecyan.com.br/)
+  - [ ] [Id Bags](https://www.idbags.com.br/)
+  - [ ] [Mafalda](https://www.amafalda.com.br/)
   - [ ] Zara
   - [ ] Renner
 - [ ] Add price migration to log price everytime a product is scraped

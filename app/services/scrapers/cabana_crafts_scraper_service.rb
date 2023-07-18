@@ -48,7 +48,7 @@ class Scrapers::CabanaCraftsScraperService
     product["old_price"] = scraped_product["on_sale"] ? scraped_product["price"] : nil
     product["price"] = scraped_product["sale_price"]
     product["installment_quantity"] = scraped_product["installments"].length
-    product["installment_value"] = scraped_product["installments"].second.to_f
+    product["installment_value"] = scraped_product["installments"].first.to_f
     product["available"] = scraped_product["available"]
     product["sizes"] = scraped_product["variants"].map do |variant|
       key, value = variant.first
