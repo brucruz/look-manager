@@ -125,8 +125,12 @@
           </div>
 
           <div class="flex flex-col justify-end py-2">
-            <span class="text-gray-400 md:text-lg line-through"><%= t('views.products.show.price.from') %><%= number_to_currency(@product.old_price) %></span>
-            <span class="text-gray-950 md:text-lg font-bold"><%= t('views.products.show.price.to') %><%= number_to_currency(@product.price) %></span>
+            <% if @product.old_price %>
+              <span class="text-gray-400 md:text-lg line-through"><%= t('views.products.show.price.from') %><%= number_to_currency(@product.old_price) %></span>
+              <span class="text-gray-950 md:text-lg font-bold"><%= t('views.products.show.price.to') %><%= number_to_currency(@product.price) %></span>
+            <% else %>
+              <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(@product.price) %></span>
+            <% end %>
             <span class="text-gray-950 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: @product.installment_quantity, price: number_to_currency(@product.installment_value)) %></span>
           </div>
         </div>
