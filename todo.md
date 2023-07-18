@@ -3,6 +3,15 @@
 - [ ] Add other sources:
   - [x] Shop2gether
   - [x] Offpremium
+  - [x] [Cabana Crafts](https://www.cabanacrafts.com.br/)
+  - [ ] [Carol Mac Dowell](https://carolmacdowell.com.br/)
+  - [ ] [Manolita](https://www.manolita.com.br/)
+  - [ ] [Quattre](https://usequattre.com/)
+  - [ ] [Onni](https://onnistore.com.br/)
+  - [ ] [Baumer](https://www.shopbaumer.com.br/)
+  - [ ] [Moon Eyewear](https://www.mooneyewear.com.br/)
+  - [ ] [Tai Dai](https://taidai.com.br/)
+  - [ ] [Uze](https://uzeoculos.com)
   - [ ] Zara
   - [ ] Renner
 - [ ] Add price migration to log price everytime a product is scraped
