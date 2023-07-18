@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
       @pagy, @products = pagy((Product.search(params[:search])), items: 18)
       @count = Product.search(params[:search]).count
     else
-      @pagy, @products = pagy((Product.all), items: 18)
+      @pagy, @products = pagy((Product.all), items: 24)
       @count = Product.count
     end
   end
