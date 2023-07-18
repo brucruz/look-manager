@@ -32,6 +32,8 @@ class Scrapers::CabanaCraftsScraperService
     else
       raise "No product found"
     end
+    
+    store_url = "https://www.cabanacrafts.com.br"
 
     product = {}
     product["name"] = scraped_product["name"]
@@ -40,7 +42,7 @@ class Scrapers::CabanaCraftsScraperService
     product["brand"] = 'Cabana Crafts'
     product["store"] = 'Cabana Crafts'
     product["url"] = @url
-    product["store_url"] = "cabanacrafts.com.br"
+    product["store_url"] = store_url
     product["currency"] = "R$"
     product["images"] = scraped_product["images"].map { |image| image["url"] }
     product["old_price"] = scraped_product["on_sale"] ? scraped_product["price"] : nil
@@ -59,7 +61,7 @@ class Scrapers::CabanaCraftsScraperService
 
     related_products = doc.css('div.products-wrap div.lista-produto div.images a').map do |product|
       slug = product["href"]
-      url = "https://www.cabanacrafts.com.br#{slug}"
+      url = "#{store_url}#{slug}"
       url
     end
 
