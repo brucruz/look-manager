@@ -209,6 +209,48 @@ CREATE TABLE public.good_jobs (
 
 
 --
+-- Name: product_variants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_variants (
+    id bigint NOT NULL,
+    name character varying,
+    sku character varying,
+    url character varying,
+    currency character varying,
+    images character varying[] DEFAULT '{}'::character varying[],
+    old_price numeric(10,2),
+    price numeric(10,2),
+    installment_quantity integer,
+    installment_value numeric(10,2),
+    available boolean,
+    sizes jsonb[] DEFAULT '{}'::jsonb[],
+    product_id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: product_variants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.product_variants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_variants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.product_variants_id_seq OWNED BY public.product_variants.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -341,6 +383,13 @@ ALTER TABLE ONLY public.collection_items ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: product_variants id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_variants ALTER COLUMN id SET DEFAULT nextval('public.product_variants_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -415,6 +464,14 @@ ALTER TABLE ONLY public.good_job_settings
 
 ALTER TABLE ONLY public.good_jobs
     ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_variants product_variants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_variants
+    ADD CONSTRAINT product_variants_pkey PRIMARY KEY (id);
 
 
 --
@@ -562,6 +619,13 @@ CREATE INDEX index_good_jobs_on_scheduled_at ON public.good_jobs USING btree (sc
 
 
 --
+-- Name: index_product_variants_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_variants_on_product_id ON public.product_variants USING btree (product_id);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -628,6 +692,14 @@ ALTER TABLE ONLY public.collection_items
 
 
 --
+-- Name: product_variants fk_rails_dae52f850b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_variants
+    ADD CONSTRAINT fk_rails_dae52f850b FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -645,6 +717,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230629005026'),
 ('20230629005931'),
 ('20230629235005'),
-('20230630013338');
+('20230630013338'),
+('20230718235932');
 
 

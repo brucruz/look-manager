@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_many :collection_items, dependent: :destroy
   has_many :users, through: :collection_items
+  has_many :product_variants, dependent: :destroy
 
   def self.bulk_existing_urls(urls)
     Product.where(url: urls).pluck(:url)
