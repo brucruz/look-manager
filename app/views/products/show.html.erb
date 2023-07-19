@@ -22,20 +22,19 @@
 -->
 
 <section>
-  <% product_variant = @product.product_variants.first %>
   <div class="relative mx-auto max-w-screen-xl px-4 py-8">
     <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
       <div class="grid grid-cols-2 gap-4 md:grid-cols-1">
         <img
-          alt="<%= product_variant.title %>"
-          src="<%= product_variant.images.first %>"
+          alt="<%= @variant.title %>"
+          src="<%= @variant.images.first %>"
           class="aspect-square w-full rounded-xl object-contain"
         />
 
         <div class="grid grid-cols-2 gap-4 lg:mt-4">
-          <% product_variant.images.drop(1).each do |image|%>
+          <% @variant.images.drop(1).each do |image|%>
             <img
-              alt="<%= product_variant.title %>"
+              alt="<%= @variant.title %>"
               src="<%= image %>"
               class="aspect-square w-full rounded-xl object-cover"
             />
@@ -45,7 +44,7 @@
 
       <div class="sticky top-0">
         <strong class="text-xs font-medium">
-          <%= t('views.products.show.last_updated', date: time_ago_in_words(product_variant.updated_at)) %>
+          <%= t('views.products.show.last_updated', date: time_ago_in_words(@variant.updated_at)) %>
         </strong>
         <%# <strong
           class="rounded-full border border-blue-600 bg-gray-100 px-3 py-0.5 text-xs font-medium tracking-wide text-blue-600"
@@ -60,10 +59,10 @@
             </p>
 
             <h1 class="text-xl font-bold sm:text-2xl">
-              <%= product_variant.full_name %>
+              <%= @variant.full_name %>
             </h1>
             
-            <% if product_variant.sku.present? %><p class="text-xs"><%= product_variant.sku %></p><% end %>
+            <% if @variant.sku.present? %><p class="text-xs"><%= @variant.sku %></p><% end %>
 
             <%# <p class="text-sm">Highest Rated Product</p>
 
@@ -126,13 +125,13 @@
           </div>
 
           <div class="flex flex-col justify-end py-2">
-            <% if product_variant.old_price %>
-              <span class="text-gray-400 text-sm md:text-md line-through"><%= number_to_currency(product_variant.old_price) %></span>
-              <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(product_variant.price) %></span>
+            <% if @variant.old_price %>
+              <span class="text-gray-400 text-sm md:text-md line-through"><%= number_to_currency(@variant.old_price) %></span>
+              <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(@variant.price) %></span>
             <% else %>
-              <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(product_variant.price) %></span>
+              <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(@variant.price) %></span>
             <% end %>
-            <span class="text-gray-500 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: product_variant.installment_quantity, price: number_to_currency(product_variant.installment_value)) %></span>
+            <span class="text-gray-500 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: @variant.installment_quantity, price: number_to_currency(@variant.installment_value)) %></span>
           </div>
         </div>
 
@@ -146,12 +145,12 @@
           <%# <button class="mt-2 text-sm font-medium underline">Read More</button> %>
         </div>
 
-        <div class="mt-8">
-            <% if product_variant.sizes.count > 0 %>
+        <div class="my-8">
+            <% if @variant.sizes.count > 0 %>
               <legend class="mb-1 text-sm font-medium"><%= t('views.products.show.sizes') %></legend>
 
               <div class="flex flex-wrap gap-1">
-                <% product_variant.sizes.each do |size| %>
+                <% @variant.sizes.each do |size| %>
                   <div class='group relative inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium <%= size["available"] ? "bg-black text-white" : "" %>'>
                     <span
                       class="absolute bottom-9 opacity-0 font-medium text-gray-950 transition ease-in-out duration-500 group-hover:opacity-100 bg-gray-50 py-1 px-3"
@@ -172,21 +171,7 @@
 
               <div class="flex flex-wrap gap-1">
                 <% @product.product_variants.each do |variant| %>
-                  <% id = "variant-#{variant.title.parameterize}" %>
-                  <label for="<%= id %>" class="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="variant"
-                      id="<%= id %>"
-                      class="peer sr-only"
-                    />
-
-                    <span
-                      class="group inline-block rounded-full border px-3 py-1 text-xs font-medium peer-checked:bg-black peer-checked:text-white"
-                    >
-                      <%= variant.title %>
-                    </span>
-                  </label>
+                  <%= button_to variant.title, product_path(id: @product.id), method: :get, params: { variant: variant.title }, class: "group inline-block rounded-full border px-3 py-1 text-xs font-medium #{'bg-black text-white' if variant.id == @variant.id}" %>
                 <% end %>
               </div>
             </div>

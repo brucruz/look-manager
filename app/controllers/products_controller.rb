@@ -16,6 +16,17 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    id = params[:id]
+    variant_title = params[:variant]
+    @product = Product.find(id)
+    
+    if variant_title.present?
+      @variant = ProductVariant.find_by(product_id: id, title: variant_title)
+    else
+      @variant = @product.product_variants.first
+    end
+
+    return @product, @variant
   end
 
   # GET /products/new
