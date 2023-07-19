@@ -34,9 +34,17 @@ class ProductsController < ApplicationController
 
     # If the product is not on the database, start the scraping process
     scraper = Scrapers::ProductScraper.new(@product_url)
-    scraped_product = scraper.scrape
+    scraped_product, scraped_variants = scraper.scrape
 
-    @product = Product.create(scraped_product)
+    ActiveRecord::Base.transaction do
+      @product = Product.create(scraped_product)
+      
+      for variant in scraped_variants
+        variant[:product_id] = @product.id
+        ProductVariant.create(variant)
+      end
+    end
+
 
     # Redirect to the result page and pass the scraped data
     redirect_to product_path(id: @product.id)

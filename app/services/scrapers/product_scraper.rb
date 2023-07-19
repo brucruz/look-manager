@@ -11,6 +11,7 @@ class Scrapers::ProductScraper
       scraper = scraper_class.new(@url)
       result = scraper.scrape
       product = result[:product]
+      variants = result[:variants]
       related_products = result[:related_products]
 
       # Create job to scrape related products
@@ -18,7 +19,7 @@ class Scrapers::ProductScraper
         AddRelatedProductsJob.perform_later(related_products)
       end
 
-      return product
+      return product, variants
     else
       raise "No scraper available for the given URL"
     end
@@ -58,6 +59,8 @@ class Scrapers::ProductScraper
       Scrapers::CabanaCraftsScraperService
     when 'nannananna.com.br'
       Scrapers::NannaScraperService
+    when 'carolmacdowell.com.br'
+      Scrapers::CarolMacDowellScraperService
     else
       nil
     end
