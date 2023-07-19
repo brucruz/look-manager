@@ -5,7 +5,6 @@ pt-BR:
         last_updated: "Última atualização: %{date} atrás"
         sizes: "Tamanhos"
         price:
-          from: "De: "
-          to: "Por: "
           installments: "%{installments}x de %{price}"
         options: "Opções"
+        store_link: "Comprar na %{store}"
