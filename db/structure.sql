@@ -214,7 +214,8 @@ CREATE TABLE public.good_jobs (
 
 CREATE TABLE public.product_variants (
     id bigint NOT NULL,
-    name character varying,
+    title character varying,
+    full_name character varying,
     sku character varying,
     url character varying,
     currency character varying,

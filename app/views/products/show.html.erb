@@ -27,7 +27,7 @@
     <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
       <div class="grid grid-cols-2 gap-4 md:grid-cols-1">
         <img
-          alt="<%= product_variant.name %>"
+          alt="<%= product_variant.title %>"
           src="<%= product_variant.images.first %>"
           class="aspect-square w-full rounded-xl object-contain"
         />
@@ -35,7 +35,7 @@
         <div class="grid grid-cols-2 gap-4 lg:mt-4">
           <% product_variant.images.drop(1).each do |image|%>
             <img
-              alt="<%= product_variant.name %>"
+              alt="<%= product_variant.title %>"
               src="<%= image %>"
               class="aspect-square w-full rounded-xl object-cover"
             />
@@ -60,7 +60,7 @@
             </p>
 
             <h1 class="text-xl font-bold sm:text-2xl">
-              <%= product_variant.name %>
+              <%= product_variant.full_name %>
             </h1>
             
             <% if product_variant.sku.present? %><p class="text-xs"><%= product_variant.sku %></p><% end %>
@@ -147,21 +147,24 @@
         </div>
 
         <div class="mt-8">
-            <legend class="mb-1 text-sm font-medium"><%= t('views.products.show.sizes') %></legend>
+            <% if product_variant.sizes.count > 0 %>
+              <legend class="mb-1 text-sm font-medium"><%= t('views.products.show.sizes') %></legend>
 
-            <div class="flex flex-wrap gap-1">
-              <% product_variant.sizes.each do |size| %>
-                <div class='group relative inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium <%= size["available"] ? "bg-black text-white" : "" %>'>
-                  <span
-                    class="absolute bottom-9 opacity-0 font-medium text-gray-950 transition ease-in-out duration-500 group-hover:opacity-100 bg-gray-50 py-1 px-3"
-                  >
-                    <%= size['available'] ? t('available') : t('not_available') %>
-                  </span>
+              <div class="flex flex-wrap gap-1">
+                <% product_variant.sizes.each do |size| %>
+                  <div class='group relative inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium <%= size["available"] ? "bg-black text-white" : "" %>'>
+                    <span
+                      class="absolute bottom-9 opacity-0 font-medium text-gray-950 transition ease-in-out duration-500 group-hover:opacity-100 bg-gray-50 py-1 px-3"
+                    >
+                      <%= size['available'] ? t('available') : t('not_available') %>
+                    </span>
 
-                  <%= size["size"].upcase %>
-                </div>
-              <% end %>
-            </div>
+                    <%= size["size"].upcase %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
 
           <% if @product.product_variants.count > 1 %>
             <div class="mt-4">
@@ -169,7 +172,7 @@
 
               <div class="flex flex-wrap gap-1">
                 <% @product.product_variants.each do |variant| %>
-                  <% id = "variant-#{variant.name.parameterize}" %>
+                  <% id = "variant-#{variant.title.parameterize}" %>
                   <label for="<%= id %>" class="cursor-pointer">
                     <input
                       type="radio"
@@ -181,7 +184,7 @@
                     <span
                       class="group inline-block rounded-full border px-3 py-1 text-xs font-medium peer-checked:bg-black peer-checked:text-white"
                     >
-                      <%= variant.name %>
+                      <%= variant.title %>
                     </span>
                   </label>
                 <% end %>

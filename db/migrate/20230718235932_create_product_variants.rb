@@ -3,7 +3,8 @@ require 'rake'
 class CreateProductVariants < ActiveRecord::Migration[7.0]
   def self.up
     create_table :product_variants do |t|
-      t.string :name
+      t.string :title
+      t.string :full_name
       t.string :sku
       t.string :url
       t.string :currency

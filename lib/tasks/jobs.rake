@@ -34,7 +34,8 @@ namespace :jobs do
       puts "Creating variant for product #{product.id}..."
 
       variant = ProductVariant.new(
-        name: product.name,
+        title: product.name,
+        full_name: product.name,
         currency: product.currency,
         images: product.images,
         old_price: product.old_price,
