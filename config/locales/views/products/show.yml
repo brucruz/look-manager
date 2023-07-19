@@ -8,3 +8,4 @@ pt-BR:
           from: "De: "
           to: "Por: "
           installments: "%{installments}x de %{price}"
+        options: "Opções"
