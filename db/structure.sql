@@ -274,7 +274,8 @@ CREATE TABLE public.products (
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     sizes jsonb[] DEFAULT '{}'::jsonb[],
-    searchable tsvector GENERATED ALWAYS AS ((((setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((name)::text, ''::text))), 'A'::"char") || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((brand)::text, ''::text))), 'A'::"char")) || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((store)::text, ''::text))), 'A'::"char")) || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE(description, ''::text))), 'B'::"char"))) STORED
+    searchable tsvector GENERATED ALWAYS AS ((((setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((name)::text, ''::text))), 'A'::"char") || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((brand)::text, ''::text))), 'A'::"char")) || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE((store)::text, ''::text))), 'A'::"char")) || setweight(to_tsvector('portuguese'::regconfig, public.f_unaccent(COALESCE(description, ''::text))), 'B'::"char"))) STORED,
+    gender character varying
 );
 
 
@@ -719,6 +720,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230629005931'),
 ('20230629235005'),
 ('20230630013338'),
-('20230718235932');
+('20230718235932'),
+('20230719202825');
 
 

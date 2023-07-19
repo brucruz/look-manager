@@ -53,9 +53,8 @@ class Scrapers::CarolMacDowellScraperService
     product["description"] = json_schema["description"]
     product["brand"] = 'Carol Mac Dowell'
     product["store"] = 'Carol Mac Dowell'
-    # product["url"] = @url
     product["store_url"] = store_url
-    # product["currency"] = "R$"
+    product["gender"] = 'female'
     
     variants = variants_object.map do |variant|
       color = variant["attributes"]["attribute_pa_cor"].capitalize
