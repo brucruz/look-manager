@@ -36,6 +36,7 @@ namespace :jobs do
       variant = ProductVariant.new(
         title: product.name,
         full_name: product.name,
+        description: product.description,
         currency: product.currency,
         images: product.images,
         old_price: product.old_price,

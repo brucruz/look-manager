@@ -39,7 +39,6 @@ class Scrapers::CabanaCraftsScraperService
 
     product = {}
     product["name"] = main_name
-    product["description"] = scraped_product["plain_description"].gsub('[espaco-entre-tabs]', "\n")
     product["gender"] = 'female'
     product["brand"] = 'Cabana Crafts'
     product["store"] = 'Cabana Crafts'
@@ -58,6 +57,7 @@ class Scrapers::CabanaCraftsScraperService
       {
         title: '',
         full_name: main_name,
+        description: scraped_product["plain_description"].gsub('[espaco-entre-tabs]', "\n"),
         sku: scraped_product["reference"],
         old_price: scraped_product["on_sale"] ? scraped_product["price"] : nil,
         price: scraped_product["sale_price"],

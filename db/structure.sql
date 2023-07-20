@@ -216,6 +216,7 @@ CREATE TABLE public.product_variants (
     id bigint NOT NULL,
     title character varying,
     full_name character varying,
+    description character varying,
     sku character varying,
     url character varying,
     currency character varying,

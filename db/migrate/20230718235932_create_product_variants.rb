@@ -5,6 +5,7 @@ class CreateProductVariants < ActiveRecord::Migration[7.0]
     create_table :product_variants do |t|
       t.string :title
       t.string :full_name
+      t.string :description
       t.string :sku
       t.string :url
       t.string :currency

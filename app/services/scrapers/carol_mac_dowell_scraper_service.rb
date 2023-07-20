@@ -50,7 +50,6 @@ class Scrapers::CarolMacDowellScraperService
     
     product = {}
     product["name"] = main_name
-    product["description"] = json_schema["description"]
     product["brand"] = 'Carol Mac Dowell'
     product["store"] = 'Carol Mac Dowell'
     product["store_url"] = store_url
@@ -84,6 +83,7 @@ class Scrapers::CarolMacDowellScraperService
         title: title,
         full_name: full_name,
         sku: sku,
+        description: json_schema["description"],
         old_price: old_price,
         price: price,
         installment_value: price,
