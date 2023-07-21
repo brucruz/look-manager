@@ -50,7 +50,13 @@ class ProductsController < ApplicationController
     scraped_product, scraped_variants = scraper.scrape
 
     ActiveRecord::Base.transaction do
-      @product = Product.create(scraped_product)
+      # check if the product is already in the database
+      @product = Product.find_by(
+        store: scraped_product["store"],
+        sku: scraped_product["sku"]
+      )
+      
+      @product = Product.create(scraped_product) if @product.nil?
       
       for variant in scraped_variants
         variant[:product_id] = @product.id
