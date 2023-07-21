@@ -52,7 +52,7 @@ class Scrapers::ProductScraper
     when 'shop2gether.com.br'
       Scrapers::ChromiumScraperService
     when 'alayabrand.com'
-      Scrapers::ChromiumScraperService
+      Scrapers::AlayaScraperService
     when 'offpremium.com.br'
       Scrapers::OffpremiumScraperService
     when 'cabanacrafts.com.br'

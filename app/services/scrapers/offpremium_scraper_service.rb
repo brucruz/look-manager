@@ -31,7 +31,7 @@ class Scrapers::OffpremiumScraperService
 
     variants = []
     
-    current_variant = parse_variant_data(product_data)
+    current_variant = parse_variant_data(product_data, @url)
     variants << current_variant
 
     product_group_id = product_data["isVariantOf"]["productGroupID"]
@@ -41,7 +41,7 @@ class Scrapers::OffpremiumScraperService
     if other_variants_urls.count > 0
       for url in other_variants_urls do
         variant_data = fetch_product_from_offpremium(url)
-        variant = parse_variant_data(variant_data)
+        variant = parse_variant_data(variant_data, url)
         variants << variant
       end
     end
@@ -98,7 +98,7 @@ class Scrapers::OffpremiumScraperService
     other_variants_url
   end
 
-  def parse_variant_data(product_data)
+  def parse_variant_data(product_data, url)
     main_name = product_data["isVariantOf"]["name"]
     title = product_data["isVariantOf"]["variants"][0]["name"].split(' - ')[0]
     full_name = "#{main_name} - #{title}"
@@ -128,7 +128,7 @@ class Scrapers::OffpremiumScraperService
       installment_quantity: product_data["commertialOffers"][0]["installment"]["count"],
       installment_value: product_data["commertialOffers"][0]["installment"]["value"].to_f,
       available: product_data["offers"]["offers"][0]["availability"] === "http://schema.org/InStock" ? true : false,
-      url: @url,
+      url: url,
       sizes: sizes,
     }
   end
