@@ -5,11 +5,13 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
+    items_per_page = 24
+
     if params[:search].present? && params[:search] != ''
-      @pagy, @products = pagy((Product.search(params[:search])), items: 18)
+      @pagy, @products = pagy((Product.search(params[:search])), items: items_per_page)
       @count = Product.search(params[:search]).count
     else
-      @pagy, @products = pagy((Product.all), items: 24)
+      @pagy, @products = pagy((Product.all), items: items_per_page)
       @count = Product.count
     end
   end

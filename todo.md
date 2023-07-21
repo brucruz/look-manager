@@ -5,7 +5,7 @@
   - [x] Offpremium
   - [x] [Cabana Crafts](https://www.cabanacrafts.com.br/)
   - [x] [Nanna](https://www.nannananna.com.br/)
-  - [ ] [Carol Mac Dowell](https://carolmacdowell.com.br/)
+  - [x] [Carol Mac Dowell](https://carolmacdowell.com.br/)
   - [ ] [Manolita](https://www.manolita.com.br/)
   - [ ] [Quattre](https://usequattre.com/)
   - [ ] [Onni](https://onnistore.com.br/)

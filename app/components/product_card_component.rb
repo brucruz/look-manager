@@ -3,14 +3,15 @@
 class ProductCardComponent < ViewComponent::Base
   def initialize(product:)
     @product = product
+    @variant = @product.product_variants.first
   end
 
   def main_image
-    @product.images.first
+    @variant.images.first
   end
 
   def hover_image
-    @product.images.second
+    @variant.images.second
   end
 
   def title
@@ -18,7 +19,7 @@ class ProductCardComponent < ViewComponent::Base
   end
 
   def description
-    @product.description.truncate(100)
+    @variant.description.truncate(100)
   end
 
   def id
@@ -34,10 +35,10 @@ class ProductCardComponent < ViewComponent::Base
   end
 
   def old_price
-    number_to_currency(@product.old_price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
+    number_to_currency(@variant.old_price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
   end
 
   def price
-    number_to_currency(@product.price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
+    number_to_currency(@variant.price, precision: 0, unit: 'R$', separator: ',', delimiter: '.')
   end
 end
