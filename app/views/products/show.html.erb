@@ -131,7 +131,10 @@
             <% else %>
               <span class="text-gray-950 md:text-lg font-bold"><%= number_to_currency(@variant.price) %></span>
             <% end %>
-            <span class="text-gray-500 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: @variant.installment_quantity, price: number_to_currency(@variant.installment_value)) %></span>
+            
+            <% if @variant.installment_value && @variant.installment_quantity %>
+              <span class="text-gray-500 text-sm md:text-md"><%= t('views.products.show.price.installments', installments: @variant.installment_quantity, price: number_to_currency(@variant.installment_value)) %></span>
+            <% end %>
           </div>
         </div>
 
