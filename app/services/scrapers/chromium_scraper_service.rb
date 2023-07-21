@@ -20,6 +20,7 @@ class Scrapers::ChromiumScraperService
       result = JSON.parse(response.body)
 
       product = result["product"]
+      variants = result["variants"]
       related_products = result["related"]
 
       if result["message"].present?
@@ -27,7 +28,11 @@ class Scrapers::ChromiumScraperService
         raise result["message"]
       end
 
-      return { product: product, related_products: related_products }
+      return {
+        product: product,
+        variants: variants,
+        related_products: related_products,
+      }
     rescue => e
       p e
       raise e

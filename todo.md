@@ -1,7 +1,9 @@
 # TODO
 
 - [ ] Add other sources:
+  - [x] Oqvestir
   - [x] Shop2gether
+  - [x] Alaya Brand
   - [x] Offpremium
   - [x] [Cabana Crafts](https://www.cabanacrafts.com.br/)
   - [x] [Nanna](https://www.nannananna.com.br/)
