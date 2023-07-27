@@ -157,7 +157,7 @@
 
               <div class="flex flex-wrap gap-1">
                 <% @variant.sizes.each do |size| %>
-                  <div class='group relative inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium <%= size["available"] ? "bg-black text-white" : "" %>'>
+                  <div class='group relative inline-flex px-2 py-1 items-center justify-center rounded-full border text-xs font-medium <%= size["available"] ? "bg-black text-white" : "" %>'>
                     <span
                       class="absolute bottom-9 opacity-0 font-medium text-gray-950 transition ease-in-out duration-500 group-hover:opacity-100 bg-gray-50 py-1 px-3"
                     >
