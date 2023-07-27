@@ -56,6 +56,9 @@
           <div class="max-w-[35ch] space-y-2 flex-auto">
             <p class="text-sm font-medium text-gray-700">
               <span><%= @product.store %></span> • <span><%= @product.brand %></span>
+              <% if @product.gender.present? %>
+                • <span><%= @product.gender == 'female' ? t('female') : t('male') %></span>
+              <% end %>
             </p>
 
             <h1 class="text-xl font-bold sm:text-2xl">

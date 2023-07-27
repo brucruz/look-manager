@@ -1,6 +1,8 @@
 pt-BR:
   available: Disponível
   not_available: Indisponível
+  male: "Masculino"
+  female: "Feminino"
   activerecord:
     errors:
       messages:
