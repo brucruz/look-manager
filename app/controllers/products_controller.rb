@@ -7,12 +7,25 @@ class ProductsController < ApplicationController
   def index
     items_per_page = 24
 
+    # TODO: make this not-male filter dynamic and add other filters
     if params[:search].present? && params[:search] != ''
-      @pagy, @products = pagy((Product.search(params[:search])), items: items_per_page)
-      @count = Product.search(params[:search]).count
+      @pagy, @products = pagy((Product.search(params[:search])
+        .where.not(gender: 'male')
+        .or(Product.where('gender is null'))
+        ), items: items_per_page)
+      @count = Product.search(params[:search])
+        .where.not(gender: 'male')
+        .or(Product.where('gender is null'))
+        .count
     else
-      @pagy, @products = pagy((Product.all), items: items_per_page)
-      @count = Product.count
+      @pagy, @products = pagy((Product
+          .where.not(gender: 'male')
+          .or(Product.where('gender is null'))
+          ), items: items_per_page)
+      @count = Product
+        .where.not(gender: 'male')
+        .or(Product.where('gender is null'))
+        .count
     end
   end
 
