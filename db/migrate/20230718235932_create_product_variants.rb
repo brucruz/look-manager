@@ -27,6 +27,12 @@ class CreateProductVariants < ActiveRecord::Migration[7.0]
 
     # run job to move old product data to product variants
     Rake::Task['jobs:move_old_product_data_to_product_variants'].invoke
+
+    # run job to treat existing products data, fixing old data and differentiating from variant's data (skus and names) and adding gender when possible
+    Rake::Task['jobs:treat_existing_products_data'].invoke
+
+    # run job to merge products variants into a single product and delete the unused products
+    Rake::Task['jobs:merge_products'].invoke
   end
 
   def self.down

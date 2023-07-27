@@ -32,10 +32,12 @@ namespace :jobs do
     # for each product, get the old data (name, currency, images, old_price, price, installment_quantity, installment_value, available, sizes) and create a variant
     for product in products_without_variants
       puts "Creating variant for product #{product.id}..."
-
+      
       variant = ProductVariant.new(
         title: product.name,
         full_name: product.name,
+        sku: product.sku,
+        url: product.url,
         description: product.description,
         currency: product.currency,
         images: product.images,
@@ -47,10 +49,168 @@ namespace :jobs do
         sizes: product.sizes,
         product_id: product.id,
       )
-
+      
       variant.save!
-
+      
       puts "Variant created for product #{product.id}"
+    end
+  end
+
+  desc "Run this script to treat past products to fix old data and differentiate from variant's data"
+  task treat_existing_products_data: :environment do
+    products_to_save = []
+
+    ActiveRecord::Base.transaction do
+      # oqvestir products
+      puts "Preparing oqvestir.com.br products..."
+      ## get all products
+      puts "Getting all oqvestir products..."
+      oqvestir_products = Product.where(store_url: "oqvestir.com.br").where.not(sku: nil)
+
+      puts "Found #{oqvestir_products.count} oqvestir products"
+
+      ## for each product, get the old sku, split with '_' and get the first part. e.g: '27.PI.1206_MARFIMFAI' turns into '27.PI.1206'
+      for product in oqvestir_products do
+        sku = product.sku.split('_')[0]
+        name = product.name.split(' - ')[0]
+        
+        is_female = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('feminin') }
+        is_male = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('masculin') }
+        gender = is_female ? 'female' : is_male ? 'male' : nil
+
+        products_to_save << {
+          :id => product.id,
+          :name => name,
+          :sku => sku,
+          :gender => gender,
+        }
+      end
+
+      # offpremium products
+      puts "Preparing offpremium.com.br products..."
+      ## get all products
+      puts "Getting all oqvestir products..."
+      offpremium_products = Product.where(store_url: "offpremium.com.br").where.not(sku: nil)
+
+      puts "Found #{offpremium_products.count} offpremium products"
+
+      ## for each product, get the old sku, split with '_' and get the first part. e.g: '27.PI.1206_MARFIMFAI' turns into '27.PI.1206'
+      for product in offpremium_products do
+        sku = product.sku.split('_')[0]
+        name = product.name.split(' - ')[0]
+        
+        is_female = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('feminin') }
+        is_male = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('masculin') }
+        gender = is_female ? 'female' : is_male ? 'male' : nil
+
+        products_to_save << {
+          :id => product.id,
+          :name => name,
+          :sku => sku,
+          :gender => gender,
+        }
+      end
+
+      # shop2gether products
+      puts "Preparing shop2gether.com.br products..."
+      ## get all products
+      puts "Getting all oqvestir products..."
+      shop2gether_products = Product.where(store_url: "shop2gether.com.br").where.not(sku: nil)
+
+      puts "Found #{shop2gether_products.count} shop2gether products"
+
+      ## for each product, get the old sku, split with '_' and get the first part. e.g: '27.PI.1206_MARFIMFAI' turns into '27.PI.1206'
+      for product in shop2gether_products do
+        sku = product.sku.split('_')[0]
+        name = product.name.split(' - ')[0]
+        
+        is_female = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('feminin') }
+        is_male = [product.name, product.description]
+          .select {|i| i != nil}
+          .any? { |text| text.downcase.include?('masculin') }
+        gender = is_female ? 'female' : is_male ? 'male' : nil
+
+        products_to_save << {
+          :id => product.id,
+          :name => name,
+          :sku => sku,
+          :gender => gender,
+        }
+      end
+
+      # alaya products
+      puts "Preparing alaya.com.br products..."
+      ## get all products with skus
+      puts "Getting all alaya products with skus..."
+      alaya_products = Product.where(store_url: "alayabrand.com").where.not(sku: nil)
+
+      puts "Found #{alaya_products.count} alaya products"
+
+      ## for each product, get the old sku, split with '_' and get the first part. e.g: '27.PI.1206_MARFIMFAI' turns into '27.PI.1206'
+      for product in alaya_products do
+        name = product.name.split(' – ').first
+        sku = product.sku.split('-').first
+        gender = 'female'
+
+        products_to_save << {
+          :id => product.id,
+          :name => name,
+          :sku => sku,
+          :gender => gender,
+        }
+      end
+
+      # preparing products in indexes to save
+      products_indexes_to_save = products_to_save.index_by { |product| product[:id] }
+
+      ## save all the changed products
+      puts "Saving all products..."
+      Product.update(products_indexes_to_save.keys, products_indexes_to_save.values)
+
+      puts "Updated #{products_indexes_to_save.count} products"
+    end
+  end
+
+  desc "Run this script to merge products variants into a single product and delete the unused products"
+  task merge_products: :environment do
+    product_ids_to_delete = []
+
+    ActiveRecord::Base.transaction do
+      puts "Locating duplicated skus+store keys..."
+      duplicated_keys = Product.select(:store, :sku).group(:store, :sku).having("count(*) > 1").size
+      puts "Found #{duplicated_keys.count} duplicated products"
+
+      puts "Starting to loop through duplicated keys to merge products..."
+      duplicated_keys.each do |duplicated_key|
+        key = duplicated_key.first
+        count = duplicated_key.last
+        store = key.first
+        sku = key.last
+
+        puts "Merging #{count} products with key #{key}..."
+        product_ids_to_merge = Product.where(store: store, sku: sku).pluck(:id)
+
+        first_product_id = product_ids_to_merge.first
+        other_product_ids = product_ids_to_merge[1..-1]
+
+        # update other_products product_variants id to first_product product_variants id
+        ProductVariant.where(product_id: other_product_ids).update_all(product_id: first_product_id)
+
+        product_ids_to_delete.push(*other_product_ids)
+      end
+
+      puts "Deleting #{product_ids_to_delete.count} products..."
+      Product.where(id: product_ids_to_delete).delete_all
     end
   end
 end
