@@ -128,6 +128,7 @@ class ProductsController < ApplicationController
       :url,
       :store_url,
       :description,
+      :gender,
       :currency,
       :old_price,
       :price,
