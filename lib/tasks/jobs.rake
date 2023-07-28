@@ -213,4 +213,38 @@ namespace :jobs do
       Product.where(id: product_ids_to_delete).delete_all
     end
   end
+
+  desc "Run this script to set Products with variants containing 'masculin'/'feminin' in the description or full_name to male/female"
+  task set_gender_based_on_description: :environment do
+    ActiveRecord::Base.transaction do
+      male_product_ids = []
+      female_product_ids = []
+      
+      ## Product variants containing 'masculin' in the description or full_name, should have their product's gender set to 'male'
+      ProductVariant.where('description ilike ?', '%masculin%')
+        .or(ProductVariant.where('full_name ilike ?', '%masculin%')).each do |variant|
+          product_id = variant.product_id
+          male_product_ids << product_id
+        end
+  
+      ## Product variants containing 'feminin' in the description or full_name, should have their product's gender set to 'male'
+      ProductVariant.where('description ilike ?', '%feminin%')
+        .or(ProductVariant.where('full_name ilike ?', '%feminin%')).each do |variant|
+          product_id = variant.product_id
+          female_product_ids << product_id
+        end
+  
+      # remove duplicates from male_product_ids
+      male_product_ids = male_product_ids.uniq
+      
+      # remove duplicates from female_product_ids
+      female_product_ids = female_product_ids.uniq
+  
+      # update gender to male in all products with id equal to male_product_ids array AND (that gender is not 'male' OR that gender is not NULL)
+      Product.where(id: male_product_ids).where('gender is null or gender <> ?', 'male').update_all(gender: 'male')
+
+      # update gender to female in all products with id equal to female_product_ids array AND (that gender is not 'female' OR that gender is not NULL)
+      Product.where(id: female_product_ids).where('gender is null or gender <> ?', 'female').update_all(gender: 'female')
+    end
+  end
 end
