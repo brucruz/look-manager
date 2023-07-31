@@ -33,6 +33,9 @@ class CreateProductVariants < ActiveRecord::Migration[7.0]
 
     # run job to merge products variants into a single product and delete the unused products
     Rake::Task['jobs:merge_products'].invoke
+
+    # run job to treat Products and set gender with variants containing 'masculin'/'feminin' in the description or full_name to male/female
+    Rake::Task['jobs:set_gender_based_on_description'].invoke
   end
 
   def self.down
