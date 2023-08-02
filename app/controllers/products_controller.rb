@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     @product_url = params[:product_url]
     return unless @product_url.present?
 
-    @product = Product.find_by(url: @product_url)
+    @product = ProductVariant.find_by(url: @product_url).product
 
     # If the product is already in the database, redirect to the result page and pass the product data
     if @product.present?
