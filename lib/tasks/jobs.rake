@@ -247,4 +247,89 @@ namespace :jobs do
       Product.where(id: female_product_ids).where('gender is null or gender <> ?', 'female').update_all(gender: 'female')
     end
   end
+
+  desc "Fix products and variants with no images"
+  task fix_products_and_variants_with_no_images: :environment do
+    ActiveRecord::Base.transaction do
+      puts "Fixing variants with no images..."
+
+      ProductVariant.where('images = ?', '{}').each do |variant|
+        puts "Fixing variant #{variant.id}..."
+        if variant.product.images.present? && variant.product.images.any?
+          puts "Variant #{variant.id} has no images, but its product has images. Setting product images to variant images..."
+          variant.images = variant.product.images
+          variant.save!
+          puts "Variant #{variant.id} fixed!"
+          return
+        end
+      
+        # destroy Product and ProductVariant if it has no images
+        puts "Variant #{variant.id} has no images and its product has no images. Destroying variant and product..."
+        product_id = variant.product.id
+        variant.destroy
+        Product.where(id: product_id).destroy_all
+        puts "Variant #{variant.id} and product #{product_id} destroyed!"
+      end
+    end
+
+    puts "Fixed variants with no images. There are #{ProductVariant.where('images = ?', '{}').count} variants with no images."
+  end
 end
+
+
+
+
+# ProductVariant.where('title ilike ?', '% - %').map do |product|
+#   # remove everything after the first ' - ', including the ' - '
+#   product.name = product.name.split(' - ').first
+#   product.save!
+# end
+
+# ProductVariant.where('title ilike ?', '% - %').where(ProductVariant.arel_table[:title].eq(ProductVariant.arel_table[:full_name])).map do |variant|
+#   variant.title = variant.title.split(' - ').last.capitalize  
+#   variant.save!
+# end
+
+# ActiveRecord::Base.transaction do
+#   product_variants_to_save = []
+#   product_variant_ids_to_destroy = []
+
+#   ProductVariant.where(url: nil).each do |variant|
+#     product = variant.product
+#     product_variants = product.product_variants
+    
+#     # check if all of the product's product_variants doesn't have an url
+#     if product_variants.all? { |variant| variant.url.nil?  }
+#       product_variants_to_save.push(*product_variants.map { |variant| { :id => variant.id, :url => product.url } })
+#     else
+#       product_variant_ids_to_destroy.push(*product_variants.select { |variant| variant.url.nil?  }.map(&:id))
+#     end
+#   end
+
+#   product_variants_to_save = product_variants_to_save.uniq
+
+#   variant_indexes_to_save = product_variants_to_save.index_by { |variant| variant[:id] }
+  
+#   puts "Updating #{product_variants_to_save.count} product variants..."
+#   ProductVariant.update(variant_indexes_to_save.keys, variant_indexes_to_save.values)
+
+#   puts "Deleting #{product_variant_ids_to_destroy.count} product variants..."
+#   ProductVariant.where(id: product_variant_ids_to_destroy).destroy_all
+# end
+
+
+# ActiveRecord::Base.transaction do
+#   product_ids_with_equal_urls = []
+
+#   Product.all.each do |product|
+#     variant_urls = product.product_variants.map { |variant| variant.url }
+#     variant_urls_count = variant_urls.uniq.count
+#     puts "Product #{product.id} has #{variant_urls_count}/#{variant_urls.count} urls"
+#     if variant_urls_count == 1 && variant_urls.count > 1
+#       product_ids_with_equal_urls << product
+#     end
+#   end
+#   puts "Total products: #{Product.count}"
+#   puts "Total products with equal urls: #{product_ids_with_equal_urls.count}"
+#   # Product.where(id: product_ids_with_equal_urls).destroy_all
+# end
