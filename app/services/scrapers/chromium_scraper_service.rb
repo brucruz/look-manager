@@ -12,13 +12,22 @@ class Scrapers::ChromiumScraperService
 
       response = Net::HTTP.get_response(URI(uri + "product/web?url=#{@url}"))
 
-      if response.code != '200'
+      result = JSON.parse(response.body)
+      
+      case response.code
+      when '200'
+      when '404'
+        case result["error"]
+        ## TODO: Add the rest of the cases
+        when 'Problem connecting to webpage: Product not found'
+          p "#{result["error"]}: #{@url}"
+          raise Exception.new(result)
+        end
+      else
         p response
         raise Exception.new(response)
       end
-
-      result = JSON.parse(response.body)
-
+      
       product = result["product"]
       variants = result["variants"]
       related_products = result["related"]
