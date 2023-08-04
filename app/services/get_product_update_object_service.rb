@@ -15,10 +15,10 @@ class GetProductUpdateObjectService
 
     # treating product attributes
     if product_to_update["sku"].nil?
-      product_to_update["sku"] = @old_attributes["product"]["sku"]
+      product_to_update["sku"] = @old_object_attributes["product"]["sku"]
     end
     if product_to_update["brand"].nil?
-      product_to_update["brand"] = @old_attributes["product"]["brand"]
+      product_to_update["brand"] = @old_object_attributes["product"]["brand"]
     end
 
     # treating variant attributes
@@ -52,13 +52,6 @@ class GetProductUpdateObjectService
         variant_to_update["price"] = old_variant_attributes["price"]
       end
   
-      # if price is missing, use the previous old_price and price attributes
-      if new_variant_attributes["price"].nil?
-        variant_to_update["old_price"] = old_variant_attributes["old_price"]
-        variant_to_update["price"] = old_variant_attributes["price"]
-      end
-  
-      
       # if installment quantity or value is missing...
       if [new_variant_attributes["installment_quantity"], new_variant_attributes["installment_value"]].any?(&:nil?)
         # check first if both installment_quantity and installment_value attributes are missing...
@@ -71,13 +64,19 @@ class GetProductUpdateObjectService
           else
             ## return new attributes
             variant_to_update["installment_quantity"] = new_variant_attributes["installment_quantity"]
-            variant_to_update["installment_value"] = @new_attributes["installment_value"]
+            variant_to_update["installment_value"] = new_variant_attributes["installment_value"]
           end
         else
           # if only one of them is nil, then use the old attributes
           variant_to_update["installment_quantity"] = old_variant_attributes["installment_quantity"]
           variant_to_update["installment_value"] = old_variant_attributes["installment_value"]
         end
+      end
+
+      # if price is missing, use the previous old_price and price attributes
+      if new_variant_attributes["price"].nil?
+        variant_to_update["old_price"] = old_variant_attributes["old_price"]
+        variant_to_update["price"] = old_variant_attributes["price"]
       end
 
       variant_to_update["product_id"] = @product_id
@@ -124,6 +123,8 @@ class GetProductUpdateObjectService
         :full_name,
         :sku,
         :description,
+        :available,
+        :url,
         :images,
         :sizes,
         :old_price,

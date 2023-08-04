@@ -6,40 +6,40 @@ type: :model do
     before :each do
       sizes = [
         {
-          size: "p",
-          available: true,
-          url: Faker::Internet.url,
+          "size" => "p",
+          "available" => true,
+          "url" => Faker::Internet.url,
         },
        
         {
-          size: "m",
-          available: false,
-          url: Faker::Internet.url,
+          "size" => "m",
+          "available" => false,
+          "url" => Faker::Internet.url,
         },
        
         {
-          size: "g",
-          available: false,
-          url: Faker::Internet.url,
+          "size" => "g",
+          "available" => false,
+          "url" => Faker::Internet.url,
         },
        
         {
-          size: "gg",
-          available: true,
-          url: Faker::Internet.url,
+          "size" => "gg",
+          "available" => true,
+          "url" => Faker::Internet.url,
         },
        
         {
-          size: "xg",
-          available: true,
-          url: Faker::Internet.url,
+          "size" => "xg",
+          "available" => true,
+          "url" => Faker::Internet.url,
         }
       ]
 
-      product_id = 1
+      @product_id = 1
 
       @initial_product = Product.new(
-        id: product_id,
+        id: @product_id,
         sku: "123456",
         brand: "Brand 1",
         store: 'store 1',
@@ -143,17 +143,52 @@ type: :model do
     it "should return a object equal to new_attributes if it is just a slice of @initial_product", focus: true do
       new_attributes_equal_to_old_attributes = @old_object_attributes
       update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes_equal_to_old_attributes).call
-      debugger
-      expect(update_object).to eq(@old_object_attributes)
+      update_product_object = update_object["product"]
+      update_variant_object = update_object["variants"][0]
+      
+      expect(update_product_object["sku"]).to eq(@old_product_attributes[:sku])
+      expect(update_product_object["brand"]).to eq(@old_product_attributes[:brand])
+
+      expect(update_variant_object["title"]).to eq(@old_variant_attributes[:title])
+      expect(update_variant_object["full_name"]).to eq(@old_variant_attributes[:full_name])
+      expect(update_variant_object["sku"]).to eq(@old_variant_attributes[:sku])
+      expect(update_variant_object["description"]).to eq(@old_variant_attributes[:description])
+      expect(update_variant_object["images"]).to eq(@old_variant_attributes[:images])
+      expect(update_variant_object["sizes"]).to eq(@old_variant_attributes[:sizes])
+      expect(update_variant_object["available"]).to eq(@old_variant_attributes[:available])
+      expect(update_variant_object["url"]).to eq(@old_variant_attributes[:url])
+      expect(update_variant_object["old_price"]).to eq(@old_variant_attributes[:old_price])
+      expect(update_variant_object["price"]).to eq(@old_variant_attributes[:price])
+      expect(update_variant_object["installment_quantity"]).to eq(@old_variant_attributes[:installment_quantity])
+      expect(update_variant_object["installment_value"]).to eq(@old_variant_attributes[:installment_value])
+      expect(update_variant_object["product_id"]).to eq(@product_id)
     end
 
     it "should return a object equal to new_attributes all its attribues are not nil" do
       update_object = GetProductUpdateObjectService.new(@initial_product_object, @new_object_attributes).call
-      expect(update_object).to eq(@new_object_attributes)
+      update_product_object = update_object["product"]
+      update_variant_object = update_object["variants"][0]
+      
+      expect(update_product_object["sku"]).to eq(@new_product_attributes[:sku])
+      expect(update_product_object["brand"]).to eq(@new_product_attributes[:brand])
+
+      expect(update_variant_object["title"]).to eq(@new_variant_attributes[:title])
+      expect(update_variant_object["full_name"]).to eq(@new_variant_attributes[:full_name])
+      expect(update_variant_object["sku"]).to eq(@new_variant_attributes[:sku])
+      expect(update_variant_object["description"]).to eq(@new_variant_attributes[:description])
+      expect(update_variant_object["images"]).to eq(@new_variant_attributes[:images])
+      expect(update_variant_object["sizes"]).to eq(@new_variant_attributes[:sizes])
+      expect(update_variant_object["available"]).to eq(@new_variant_attributes[:available])
+      expect(update_variant_object["url"]).to eq(@new_variant_attributes[:url])
+      expect(update_variant_object["old_price"]).to eq(@new_variant_attributes[:old_price])
+      expect(update_variant_object["price"]).to eq(@new_variant_attributes[:price])
+      expect(update_variant_object["installment_quantity"]).to eq(@new_variant_attributes[:installment_quantity])
+      expect(update_variant_object["installment_value"]).to eq(@new_variant_attributes[:installment_value])
+      expect(update_variant_object["product_id"]).to eq(@product_id)
     end
 
     it "should return old attributes if new name, sku, brand, description, images and sizes attributes are missing" do
-      new_attributes = @new__object_attributes
+      new_attributes = @new_object_attributes
 
       new_attributes["product"][:brand] = nil
       new_attributes["product"][:sku] = nil
@@ -164,20 +199,20 @@ type: :model do
       new_attributes["variants"][0][:description] = nil
       new_attributes["variants"][0][:images] = []
       new_attributes["variants"][0][:sizes] = []
-      
+
       update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
       update_product = update_object["product"]
       update_variant = update_object["variants"][0]
       
-      expect(update_product[:sku]).to eq(@initial_product.sku)
-      expect(update_product[:brand]).to eq(@initial_product.brand)
+      expect(update_product["sku"]).to eq(@old_product_attributes[:sku])
+      expect(update_product["brand"]).to eq(@old_product_attributes[:brand])
 
-      expect(update_variant[:title]).to eq(@initial_variant.title)
-      expect(update_variant[:full_name]).to eq(@initial_variant.full_name)
-      expect(update_variant[:sku]).to eq(@initial_variant.sku)
-      expect(update_variant[:description]).to eq(@initial_variant.description)
-      expect(update_variant[:images]).to eq(@initial_variant.images)
-      expect(update_variant[:sizes]).to eq(@initial_variant.sizes)
+      expect(update_variant["title"]).to eq(@old_variant_attributes[:title])
+      expect(update_variant["full_name"]).to eq(@old_variant_attributes[:full_name])
+      expect(update_variant["sku"]).to eq(@old_variant_attributes[:sku])
+      expect(update_variant["description"]).to eq(@old_variant_attributes[:description])
+      expect(update_variant["images"]).to eq(@old_variant_attributes[:images])
+      expect(update_variant["sizes"]).to eq(@old_variant_attributes[:sizes])
     end
 
     context "price and old_price update" do
@@ -186,8 +221,8 @@ type: :model do
 
         update_variant = update_object["variants"][0]
         
-        expect(update_variant[:old_price]).to eq(@new_variant_attributes[:old_price])
-        expect(update_variant[:price]).to eq(@new_variant_attributes[:price])
+        expect(update_variant["old_price"]).to eq(@new_variant_attributes[:old_price])
+        expect(update_variant["price"]).to eq(@new_variant_attributes[:price])
       end
 
       it "should return use the old prices attributes if both old_price and price attributes are missing" do
@@ -198,8 +233,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
         update_variant = update_object["variants"][0]
         
-        expect(update_variant[:old_price]).to eq(@initial_variant.old_price)
-        expect(update_variant[:price]).to eq(@initial_variant.price)
+        expect(update_variant["old_price"]).to eq(@initial_variant.old_price)
+        expect(update_variant["price"]).to eq(@initial_variant.price)
       end
 
       it "should return the new price attributes if only old_price is missing" do
@@ -209,8 +244,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
         update_variant = update_object["variants"][0]
 
-        expect(update_variant[:old_price]).to eq(nil)
-        expect(update_variant[:price]).to eq(new_attributes["variants"][0][:price])
+        expect(update_variant["old_price"]).to eq(nil)
+        expect(update_variant["price"]).to eq(new_attributes["variants"][0][:price])
       end
 
       it "should return the old price attributes only price is missing" do
@@ -220,8 +255,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
         update_variant = update_object["variants"][0]
 
-        expect(update_variant[:old_price]).to eq(@old_variant_attributes[:old_price])
-        expect(update_variant[:price]).to eq(@old_variant_attributes[:price])
+        expect(update_variant["old_price"]).to eq(@old_variant_attributes[:old_price])
+        expect(update_variant["price"]).to eq(@old_variant_attributes[:price])
       end
     end
 
@@ -230,8 +265,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, @new_object_attributes).call
         update_variant = update_object["variants"][0]
 
-        expect(update_variant[:installment_quantity]).to eq(@new_variant_attributes[:installment_quantity])
-        expect(update_variant[:installment_value]).to eq(@new_variant_attributes[:installment_value])
+        expect(update_variant["installment_quantity"]).to eq(@new_variant_attributes[:installment_quantity])
+        expect(update_variant["installment_value"]).to eq(@new_variant_attributes[:installment_value])
       end
 
       it "should return new installments quantity and value attributes if both are missing AND price is present" do
@@ -243,8 +278,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
         update_variant = update_object["variants"][0]
 
-        expect(update_variant[:installment_quantity]).to eq(@new_variant_attributes[:installment_quantity])
-        expect(update_variant[:installment_value]).to eq(@new_variant_attributes[:installment_value])
+        expect(update_variant["installment_quantity"]).to eq(@new_variant_attributes[:installment_quantity])
+        expect(update_variant["installment_value"]).to eq(@new_variant_attributes[:installment_value])
       end
 
       it "should return OLD installments quantity and value attributes if both are missing AND price is NOT present" do
@@ -256,8 +291,8 @@ type: :model do
         update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes).call
         update_variant = update_object["variants"][0]
 
-        expect(update_variant[:installment_quantity]).to eq(@old_variant_attributes[:installment_quantity])
-        expect(update_variant[:installment_value]).to eq(@old_variant_attributes[:installment_value])
+        expect(update_variant["installment_quantity"]).to eq(@old_variant_attributes[:installment_quantity])
+        expect(update_variant["installment_value"]).to eq(@old_variant_attributes[:installment_value])
       end
     end
   end
