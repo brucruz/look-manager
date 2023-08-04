@@ -140,7 +140,7 @@ type: :model do
       }
     end
 
-    it "should return a object equal to new_attributes if it is just a slice of @initial_product", focus: true do
+    it "should return a object equal to new_attributes if it is just a slice of @initial_product" do
       new_attributes_equal_to_old_attributes = @old_object_attributes
       update_object = GetProductUpdateObjectService.new(@initial_product_object, new_attributes_equal_to_old_attributes).call
       update_product_object = update_object["product"]
@@ -293,6 +293,66 @@ type: :model do
 
         expect(update_variant["installment_quantity"]).to eq(@old_variant_attributes[:installment_quantity])
         expect(update_variant["installment_value"]).to eq(@old_variant_attributes[:installment_value])
+      end
+    end
+
+    context "old: one product + one variant, new: one product + two variants", focus: true do
+      it "should return the new variant attributes and new found variant attributes" do
+        new_found_variant_attributes = {
+          "title" => "New found variant", 
+          "full_name" => "New found variant", 
+          "sku" => "new_found_variant_sku", 
+          "description" => "just a new found variant", 
+          "images" => ["new_found_variant_image"], 
+          "sizes" => [{"size" => "new_found_variant_size", "available" => true, "url" => "new_found_variant_url"}],
+          "available" => true,
+          "url" => "https://new_found_variant.url",
+          "old_price" => nil, 
+          "price" => 120, 
+          "installment_quantity" => 12, 
+          "installment_value" => 10,
+        }
+  
+        new_object_attributes = {
+          "product" => @new_product_attributes,
+          "variants" => [@new_variant_attributes, new_found_variant_attributes],
+        }
+        
+        update_object = GetProductUpdateObjectService.new(@initial_product_object, new_object_attributes).call
+        update_product_object = update_object["product"]
+        update_first_variant_object = update_object["variants"].first
+        update_second_variant_object = update_object["variants"].second
+              
+        expect(update_product_object["sku"]).to eq(@new_product_attributes[:sku])
+        expect(update_product_object["brand"]).to eq(@new_product_attributes[:brand])
+  
+        expect(update_first_variant_object["title"]).to eq(@new_variant_attributes[:title])
+        expect(update_first_variant_object["full_name"]).to eq(@new_variant_attributes[:full_name])
+        expect(update_first_variant_object["sku"]).to eq(@new_variant_attributes[:sku])
+        expect(update_first_variant_object["description"]).to eq(@new_variant_attributes[:description])
+        expect(update_first_variant_object["images"]).to eq(@new_variant_attributes[:images])
+        expect(update_first_variant_object["sizes"]).to eq(@new_variant_attributes[:sizes])
+        expect(update_first_variant_object["available"]).to eq(@new_variant_attributes[:available])
+        expect(update_first_variant_object["url"]).to eq(@new_variant_attributes[:url])
+        expect(update_first_variant_object["old_price"]).to eq(@new_variant_attributes[:old_price])
+        expect(update_first_variant_object["price"]).to eq(@new_variant_attributes[:price])
+        expect(update_first_variant_object["installment_quantity"]).to eq(@new_variant_attributes[:installment_quantity])
+        expect(update_first_variant_object["installment_value"]).to eq(@new_variant_attributes[:installment_value])
+        expect(update_first_variant_object["product_id"]).to eq(@product_id)
+  
+        expect(update_second_variant_object["title"]).to eq(new_found_variant_attributes["title"])
+        expect(update_second_variant_object["full_name"]).to eq(new_found_variant_attributes["full_name"])
+        expect(update_second_variant_object["sku"]).to eq(new_found_variant_attributes["sku"])
+        expect(update_second_variant_object["description"]).to eq(new_found_variant_attributes["description"])
+        expect(update_second_variant_object["images"]).to eq(new_found_variant_attributes["images"])
+        expect(update_second_variant_object["sizes"]).to eq(new_found_variant_attributes["sizes"])
+        expect(update_second_variant_object["available"]).to eq(new_found_variant_attributes["available"])
+        expect(update_second_variant_object["url"]).to eq(new_found_variant_attributes["url"])
+        expect(update_second_variant_object["old_price"]).to eq(new_found_variant_attributes["old_price"])
+        expect(update_second_variant_object["price"]).to eq(new_found_variant_attributes["price"])
+        expect(update_second_variant_object["installment_quantity"]).to eq(new_found_variant_attributes["installment_quantity"])
+        expect(update_second_variant_object["installment_value"]).to eq(new_found_variant_attributes["installment_value"])
+        expect(update_second_variant_object["product_id"]).to eq(@product_id)
       end
     end
   end

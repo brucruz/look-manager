@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe ScrapeProductJob do
-  context "When testing the ScrapeProductJob class" do
+RSpec.describe ScrapeProductVariantJob do
+  context "When testing the ScrapeProductVariantJob class" do
     it "should update product with scraped data" do
-      product = Product.new(name: Faker::Commerce.product_name,
+      product_variant = ProductVariant.new(
+        title: Faker::Commerce.product_name,
+        full_name: Faker::Commerce.product_name,
         sku: Faker::Alphanumeric.alpha(number: 10),
-        brand: Faker::Commerce.brand,
-        store: Faker::Commerce.vendor,
         url: Faker::Internet.url,
         store_url: Faker::Internet.url,
         description: Faker::Quote.yoda,
@@ -24,9 +24,9 @@ RSpec.describe ScrapeProductJob do
         ]
       )
 
-      product = ScrapeProductJob.new(product).perform_now
+      scraped_variant = ScrapeProductVariantJob.new(product_variant).perform_now
 
-      expect(product[:name]).to be_a(String)
+      expect(scraped_variant[:name]).to be_a(String)
     end
   end
 end
