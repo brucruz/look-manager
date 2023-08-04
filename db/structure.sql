@@ -229,7 +229,8 @@ CREATE TABLE public.product_variants (
     sizes jsonb[] DEFAULT '{}'::jsonb[],
     product_id bigint NOT NULL,
     created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL
+    updated_at timestamp with time zone NOT NULL,
+    deleted_source boolean DEFAULT false
 );
 
 
@@ -722,6 +723,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230629235005'),
 ('20230630013338'),
 ('20230718235932'),
-('20230719202825');
+('20230719202825'),
+('20230804225614');
 
 
