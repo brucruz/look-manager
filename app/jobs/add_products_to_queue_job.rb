@@ -2,7 +2,7 @@ class AddProductsToQueueJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    variants = ProductVariant.all
+    variants = ProductVariant.where(deleted_source: false)
     puts("Adding #{variants.count} product variants to queue")
 
     # add each product to the queue of ScrapeProductVariantJob passing product as an argument
