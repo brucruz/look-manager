@@ -8,11 +8,21 @@ class ScrapeProductJob < ApplicationJob
       # scrape product from the web
       puts("Scraping product #{product.name} last information")
       scraper = Scrapers::ProductScraper.new(product.url)
-      scraped_product = scraper.scrape
+      scraped_product, scraped_variants = scraper.scrape
+
+      scraped_object = {
+        "product" => scraped_product,
+        "variants" => scraped_variants,
+      }
+
+      product_object = {
+        "product" => product,
+        "variants" => product.product_variants,
+      }
 
       # get product update object
       puts("Getting product #{product.name} update object")
-      update_object = GetProductUpdateObjectService.new(product, scraped_product).call
+      update_object = GetProductUpdateObjectService.new(product_object, scraped_object).call
 
       # update product
       puts("Updating product #{product.name}")
