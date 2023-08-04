@@ -21,7 +21,7 @@ class Scrapers::ChromiumScraperService
         ## TODO: Add the rest of the cases
         when 'Problem connecting to webpage: Product not found'
           p "#{result["error"]}: #{@url}"
-          raise Exception.new(result)
+          raise Scrapers::Errors::ProductNotFoundError.new("Product not found in #{@url}", @url)
         end
       else
         p response

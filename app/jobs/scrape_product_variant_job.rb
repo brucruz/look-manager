@@ -46,6 +46,14 @@ class ScrapeProductVariantJob < ApplicationJob
       
       { updated_product: @updated_product, updated_variants: @updated_variants }
 
+    rescue Scrapers::Errors::ProductNotFoundError => exception
+      puts(exception.message)
+      error_source = ProductVariant.find_by(url: exception.url)
+      if error_source.present?
+        # update product variant availability to false
+        error_source.update(available: false, deleted_source: true)
+      end
+
     rescue => exception
       # TODO: Add error handling for when the product is not found
       puts("Error scraping product variant #{product_variant.full_name}: #{exception}")
