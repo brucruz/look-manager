@@ -10,23 +10,27 @@ class ProductsController < ApplicationController
     # TODO: make this not-male filter dynamic and add other filters
     if params[:search].present? && params[:search] != ''
       @pagy, @products = pagy((Product.search(params[:search])
-        .where(deleted_source: false)
+        .joins(:product_variants)
+        .where(:product_variants => { :deleted_source => false })
         .where.not(gender: 'male')
         .or(Product.where('gender is null'))
         ), items: items_per_page)
       @count = Product.search(params[:search])
-        .where(deleted_source: false)
+        .joins(:product_variants)
+        .where(:product_variants => { :deleted_source => false })
         .where.not(gender: 'male')
         .or(Product.where('gender is null'))
         .count
     else
       @pagy, @products = pagy((Product
-          .where(deleted_source: false)
+          .joins(:product_variants)
+          .where(:product_variants => { :deleted_source => false })
           .where.not(gender: 'male')
           .or(Product.where('gender is null'))
           ), items: items_per_page)
       @count = Product
-        .where(deleted_source: false)
+        .joins(:product_variants)
+        .where(:product_variants => { :deleted_source => false })
         .where.not(gender: 'male')
         .or(Product.where('gender is null'))
         .count
