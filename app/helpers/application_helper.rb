@@ -14,4 +14,14 @@ module ApplicationHelper
 
     prefix
   end
+
+  def get_pt_br_number(value_string)
+    # get the value as a string, but keep the commas
+    string_value = value_string.gsub(/[^0-9\,]+/, "")
+    parse_locale_number(string_value, "pt-BR")
+  end
+
+  def parse_locale_number(string_number, locale)
+    string_number.gsub('.', '').gsub(",", ".").to_f
+  end
 end
