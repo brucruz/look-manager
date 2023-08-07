@@ -152,7 +152,7 @@ class Scrapers::ManolitaScraperService
       currency: "R$",
       price: price,
       available: available,
-      url: @url,
+      url: url,
       sizes: sizes,
     }
   end

@@ -2,7 +2,7 @@ require "nokogiri"
 require 'net/http'
 require "uri"
 
-class Scrapers::QuattreScraperService
+class Scrapers::OnniScraperService
   include ApplicationHelper
   
   def initialize(url)
@@ -10,16 +10,21 @@ class Scrapers::QuattreScraperService
   end
 
   def scrape
-    quattre_response = fetch_product_from_quattre(@url)
+    onni_response = fetch_product_from_onni(@url)
 
-    product_doc = quattre_response[:product_doc]
-    variations_urls = quattre_response[:variations_urls]
+    breadcrumbs = onni_response[:breadcrumbs]
+    product_doc = onni_response[:product_doc]
+    sizes_data = onni_response[:sizes_data]
+    variations_urls = onni_response[:variations_urls]
 
     product = {}
-    product["brand"] = "quattre"
-    product["store"] = "quattre"
-    product["store_url"] = "usequattre.com.br"
-    product["gender"] = 'female'
+    product["brand"] = "onni"
+    product["store"] = "onni"
+    product["store_url"] = "onnistore.com.br"
+    
+    is_male = breadcrumbs.any? { |el| el.include?("masculin") }
+    is_female = breadcrumbs.any? { |el| el.include?("feminin") }
+    product["gender"] = is_male ? 'male' : is_female ? 'female' : nil
 
     variants = []
     @full_names = []
@@ -27,20 +32,23 @@ class Scrapers::QuattreScraperService
     
     current_variant = parse_variant_data(
       product_doc,
+      sizes_data,
       @url
     )
     variants << current_variant
 
     if variations_urls.count > 0
       for url in variations_urls do
-        variant_response = fetch_product_from_quattre(url)
+        variant_response = fetch_product_from_onni(url)
 
         next if variant_response.nil?
 
         variant_doc = variant_response[:product_doc]
+        variant_sizes_data = variant_response[:sizes_data]
 
         variant = parse_variant_data(
           variant_doc,
+          variant_sizes_data,
           url
         )
 
@@ -67,8 +75,8 @@ class Scrapers::QuattreScraperService
     return { product: product, variants: variants.uniq { |variant| variant[:sku] } }
   end
 
-  def fetch_product_from_quattre(url)
-    puts "Fetching product from quattre: #{url}"
+  def fetch_product_from_onni(url)
+    puts "Fetching product from onni: #{url}"
     
     uri = URI.parse(url)
 
@@ -79,31 +87,51 @@ class Scrapers::QuattreScraperService
 
       doc = Nokogiri::HTML(html)
 
+      breadcrumbs = doc.css('div.main div.breadcrumbs ul li')[1..-1].map { |li| li.text.downcase.strip }
       product_doc = doc.css('div.main div.product-view div.product-essential')
-      variations_urls = doc.css('div.cores-disponiveis a').map { |a| a.attr('href') }
+      sizes_data = JSON.parse(
+        doc.css('script:contains("window.dataLayer.push(")')
+          .first.text
+          .split('window.dataLayer.push(').second
+          .gsub(');', '')
+      )
+      variations_urls = product_doc.css('div.block-related ol.mini-products-list li.item div.product a.product-image').map { |a| a.attr("href") }
 
       return {
+        breadcrumbs: breadcrumbs,
         product_doc: product_doc,
+        sizes_data: sizes_data,
         # remove the current url from the variations urls to avoid scraping the same product twice
         variations_urls: variations_urls.select { |url| url != @url },
       }
     end
   end
 
-  def parse_variant_data(doc, url)
-    full_name = doc.css('div.product-shop div.product-name span.h1').text.strip
+  def parse_variant_data(doc, sizes_data, url)
+    full_name = sizes_data["productName"]
     puts "parsing variant: #{full_name}..."
     @full_names << full_name
 
-    variant_sku = full_name.parameterize
+    variant_sku = sizes_data["productSku"]
     @skus << variant_sku
 
     description_css = doc.css('div.short-description div.std')
     # substitute the <br> tags with new lines (\n)
     description_css.search('br').each { |br| br.replace("\n") }
-    description = description_css.text.strip
 
-    images = doc.css('div.product-image-gallery img.gallery-image').map do |img|
+    all_sizes = []
+    
+    description_array = doc
+      .css('div.add-to-cart-wrapper div.product-collateral dl.collateral-tabs dd.tab-container p')
+      .map do |p|
+        p.search('br').each { |br| br.replace("\n") }
+        all_sizes = p.text.strip if p.text.strip.include?("cm | ")
+        p.text.strip
+      end
+    
+    description = description_css.text.strip + "\n" + description_array.join("\n")
+
+    images = doc.css('div.product-img-box div.MagicToolboxSelectorsContainer div a img').map do |img|
       img.attr('src')
     end
 
@@ -118,33 +146,18 @@ class Scrapers::QuattreScraperService
       price = get_pt_br_number(price_str)
     end
 
-    ## given a description with the following format:
-    # - Fivela escovada
-    # - 100% feito a mão
-    # Tamanho 34 - 22.5 cm
-    # Tamanho 35 - 23.0 cm
-    # Tamanho 36 - 23.5 cm
-    # Tamanho 37 - 24.0 cm
-    # and so on...
-    # we want to extract the sizes:
-    # sizes = ["34", "35", "36", "37", ...]
+    installments = doc.css('div.price-info div.price-box span.precoparcelado-parcels').text.strip
+    installment_quantity = installments.split('x de ').first.strip.to_i
+    installment_value = get_pt_br_number(installments.split('x de ').last.strip)
 
-    all_sizes = description.split("\n").select { |line| line.start_with?("Tamanho ") }.map do |line|
-      line.split(" - ").first.gsub("Tamanho ", "").strip
-    end
-    available_sizes_str = doc
-      .css('div.product-options script:contains("spConfig")')
-      .text
-      .split("spConfig = new Product.Config(").last
-      .split(");").first
-    available_sizes_json = JSON.parse(available_sizes_str)
-    available_sizes = available_sizes_json["attributes"]["139"]["options"].map {|option| option["label"] }
+    ## from all_sizes = 'PP - Busto: 84 - 88 cm | Cintura: 66 - 70 cm | Quadril: 92 - 96 cm\nP - Busto: 88 - 92 cm | Cintura: 70 - 74 cm | Quadril: 96 - 100 cm\nM - Busto: 92 - 96 cm | Cintura: 74 - 78 cm | Quadril: 100 - 104 cm\nG - Busto: 96 - 100 cm | Cintura: 78 - 82 cm | Quadril: 104 - 108 cm'
+    # get all the sizes: all_sizes = ['PP', 'P', 'M', 'G']
+    all_sizes = all_sizes.split("\n").map { |size| size.split(" - ").first }
+    
+    available_sizes = doc.css('dd.clearfix div.input-box ul li span.swatch-label').map { |span| span.text.strip }
 
     sizes = all_sizes.map do |size|
-      size = size
-      url = url
       available = available_sizes.include?(size)
-
       { size: size, available: available, url: url }
     end
 
@@ -160,6 +173,8 @@ class Scrapers::QuattreScraperService
       currency: "R$",
       old_price: old_price,
       price: price,
+      installment_quantity: installment_quantity,
+      installment_value: installment_value,
       available: available,
       url: url,
       sizes: sizes,

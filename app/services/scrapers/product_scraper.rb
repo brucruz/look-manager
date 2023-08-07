@@ -65,6 +65,8 @@ class Scrapers::ProductScraper
       Scrapers::ManolitaScraperService
     when 'usequattre.com.br'
       Scrapers::QuattreScraperService
+    when 'onnistore.com.br'
+      Scrapers::OnniScraperService
     else
       nil
     end
