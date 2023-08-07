@@ -82,7 +82,17 @@ class ProductsController < ApplicationController
       
       for variant in scraped_variants
         variant[:product_id] = @product.id
-        ProductVariant.create(variant)
+
+        existing_variant = ProductVariant.find_by(
+          product_id: variant[:product_id],
+          sku: variant[:sku]
+        )
+
+        if existing_variant.present?
+          ProductVariant.update(existing_variant.id, variant)
+        else
+          ProductVariant.create(variant)
+        end
       end
     end
 
