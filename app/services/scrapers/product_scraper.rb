@@ -63,6 +63,8 @@ class Scrapers::ProductScraper
       Scrapers::CarolMacDowellScraperService
     when 'manolita.com.br'
       Scrapers::ManolitaScraperService
+    when 'usequattre.com.br'
+      Scrapers::QuattreScraperService
     else
       nil
     end
