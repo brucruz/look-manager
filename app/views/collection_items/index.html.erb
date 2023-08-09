@@ -8,15 +8,18 @@
   <li class="my-2 mr-4"><%= link_to "All products", products_path, class: 'link-primary' %></li>
 </ul>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <div class="p-4 my-4 bg-gray-50 drop-shadow">
-      <%= render product %>
+<main id="products">
+  <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <% @products.each do |product| %>
+      <div class="p-4 my-4">
+        <%# <%= render product %>
+        <%= render(ProductCardComponent.new(product: product)) %>
 
-      <%= render product.collection_items.find_by(user_id: current_user.id ) %>
-      <div>
-        <%= link_to "Show this item", product, class: 'link-primary' %>
+        <%= render product.collection_items.find_by(user_id: current_user.id ) %>
+        <div>
+          <%= link_to "Show this item", product, class: 'link-primary' %>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+</main>
