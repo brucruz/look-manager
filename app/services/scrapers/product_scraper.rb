@@ -12,12 +12,12 @@ class Scrapers::ProductScraper
       result = scraper.scrape
       product = result[:product]
       variants = result[:variants]
-      related_products = result[:related_products]
+      # related_products = result[:related_products]
 
       # Create job to scrape related products
-      if related_products.present? && related_products.count > 0
-        AddRelatedProductsJob.perform_later(related_products)
-      end
+      # if related_products.present? && related_products.count > 0
+      #   AddRelatedProductsJob.perform_later(related_products)
+      # end
 
       return product, variants
     else
