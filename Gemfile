@@ -5,27 +5,27 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.5'
 
 gem 'bootsnap', require: false
-gem 'capybara'
+gem 'capybara', '~> 3.39.2'
 gem 'cssbundling-rails'
 gem 'devise'
 gem 'figaro'
 gem 'good_job'
 gem 'jbuilder'
 gem 'jsbundling-rails'
-gem 'nokogiri'
+gem 'nokogiri', '1.15.2'
 gem 'pagy', '~> 6.0'
 gem 'pg', '~> 1.1'
 gem 'pg_search'
 gem 'puma', '~> 5.0'
 gem 'selenium-webdriver'
 gem 'sprockets-rails'
-gem 'stimulus-rails'
+gem 'stimulus-rails', '~> 1.2.2'
 gem 'tailwindcss-rails'
 gem 'tanakai'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem "view_component"
-gem 'webdrivers'
+gem 'webdrivers', '~> 5.3.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
