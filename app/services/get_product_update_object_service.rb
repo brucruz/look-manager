@@ -22,49 +22,49 @@ class GetProductUpdateObjectService
     end
 
     # treating variant attributes
-    variants_to_update.map.with_index do |variant_to_update, index|
-      new_variant_attributes = @new_object_attributes["variants"][index]
-      old_variant_attributes = @old_object_attributes["variants"][index]
+    variants_to_update.map do |variant_to_update|
+      # variant_to_update = @new_object_attributes["variants"][index]
+      old_variant_attributes = @old_object_attributes["variants"].find {|item| item["sku"] == variant_to_update["sku"] }
 
       # if new name, sku, brand, description, images and sizes attributes are missing use the old product attributes
-      if new_variant_attributes["title"].nil?
+      if variant_to_update["title"].nil?
         variant_to_update["title"] = old_variant_attributes["title"]
       end
-      if new_variant_attributes["full_name"].nil?
+      if variant_to_update["full_name"].nil?
         variant_to_update["full_name"] = old_variant_attributes["full_name"]
       end
-      if new_variant_attributes["sku"].nil?
+      if variant_to_update["sku"].nil?
         variant_to_update["sku"] = old_variant_attributes["sku"]
       end
-      if new_variant_attributes["description"].nil?
+      if variant_to_update["description"].nil?
         variant_to_update["description"] = old_variant_attributes["description"]
       end
-      if new_variant_attributes["images"].nil? || new_variant_attributes["images"].empty?
+      if variant_to_update["images"].nil? || variant_to_update["images"].empty?
         variant_to_update["images"] = old_variant_attributes["images"]
       end
-      if new_variant_attributes["sizes"].nil? || new_variant_attributes["sizes"].empty?
+      if variant_to_update["sizes"].nil? || variant_to_update["sizes"].empty?
         variant_to_update["sizes"] = old_variant_attributes["sizes"]
       end
   
       # if both old_price and price attributes are missing use the old product attributes
-      if new_variant_attributes["old_price"].nil? && new_variant_attributes["price"].nil?
+      if variant_to_update["old_price"].nil? && variant_to_update["price"].nil?
         variant_to_update["old_price"] = old_variant_attributes["old_price"]
         variant_to_update["price"] = old_variant_attributes["price"]
       end
   
       # if installment quantity or value is missing...
-      if [new_variant_attributes["installment_quantity"], new_variant_attributes["installment_value"]].any?(&:nil?)
+      if [variant_to_update["installment_quantity"], variant_to_update["installment_value"]].any?(&:nil?)
         # check first if both installment_quantity and installment_value attributes are missing...
-        if new_variant_attributes["installment_quantity"].nil? && new_variant_attributes["installment_value"].nil?
+        if variant_to_update["installment_quantity"].nil? && variant_to_update["installment_value"].nil?
           ## check if price is also missing...
-          if new_variant_attributes["price"].nil?
+          if variant_to_update["price"].nil?
             ## if it is missing, then return old attributes
             variant_to_update["installment_quantity"] = old_variant_attributes["installment_quantity"]
             variant_to_update["installment_value"] = old_variant_attributes["installment_value"]
           else
             ## return new attributes
-            variant_to_update["installment_quantity"] = new_variant_attributes["installment_quantity"]
-            variant_to_update["installment_value"] = new_variant_attributes["installment_value"]
+            variant_to_update["installment_quantity"] = variant_to_update["installment_quantity"]
+            variant_to_update["installment_value"] = variant_to_update["installment_value"]
           end
         else
           # if only one of them is nil, then use the old attributes
@@ -74,7 +74,7 @@ class GetProductUpdateObjectService
       end
 
       # if price is missing, use the previous old_price and price attributes
-      if new_variant_attributes["price"].nil?
+      if variant_to_update["price"].nil?
         variant_to_update["old_price"] = old_variant_attributes["old_price"]
         variant_to_update["price"] = old_variant_attributes["price"]
       end
